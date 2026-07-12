@@ -1,0 +1,67 @@
+[gd_scene format=3 uid="uid://b7yh16y20q4rb"]
+
+[ext_resource type="Texture2D" uid="uid://75vwgiykv1td" path="res://Sprites/PostItNote.png" id="1_qefxk"]
+[ext_resource type="LabelSettings" uid="uid://df8gecgp1h1py" path="res://Scripts/Resources/StandardLabelSettings.tres" id="2_o6t00"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o6t00"]
+bg_color = Color(0.1101476, 0.23117274, 0.13995114, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_size = 2
+shadow_offset = Vector2(2, 2)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1rnw2"]
+bg_color = Color(0.1005326, 0.2751625, 0.16047531, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+shadow_size = 1
+
+[node name="PostItNote" type="TextureRect" unique_id=1214223644]
+z_index = -1
+offset_right = 110.0
+offset_bottom = 110.0
+mouse_filter = 2
+texture = ExtResource("1_qefxk")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1809346778]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -35.0
+offset_right = 35.0
+offset_bottom = 51.0
+grow_horizontal = 2
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=864450217]
+layout_mode = 2
+text = "Add task?"
+label_settings = ExtResource("2_o6t00")
+
+[node name="Button" type="Button" parent="VBoxContainer" unique_id=1803428927]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0.08184064, 0.13346907, 0.37189817, 1)
+theme_override_constants/outline_size = 0
+theme_override_styles/normal = SubResource("StyleBoxFlat_o6t00")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_1rnw2")
+theme_override_styles/hover = SubResource("StyleBoxFlat_1rnw2")
+text = "Create
+"

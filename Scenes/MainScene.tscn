@@ -1,0 +1,275 @@
+[gd_scene format=3 uid="uid://bnojb21x00hb0"]
+
+[ext_resource type="Texture2D" uid="uid://duiw63y5q66fg" path="res://Sprites/ClipBoard.png" id="1_hpc76"]
+[ext_resource type="Script" uid="uid://dfspidpw1bao7" path="res://Scripts/cs_scripts/LogicHandler.cs" id="1_nhkr4"]
+[ext_resource type="PackedScene" uid="uid://7wwxyg361v6c" path="res://Scenes/TaskContainer.tscn" id="2_7rqgy"]
+[ext_resource type="PackedScene" uid="uid://b7yh16y20q4rb" path="res://Scenes/PostItScene.tscn" id="2_tr2i4"]
+[ext_resource type="PackedScene" uid="uid://bgnelrcr1r6cx" path="res://Scenes/TaskCreationPapper.tscn" id="5_qxria"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_hpc76"]
+font_size = 40
+font_color = Color(0, 0, 0, 1)
+shadow_size = 3
+shadow_color = Color(0, 0, 0, 0.20784314)
+
+[sub_resource type="Animation" id="Animation_qxria"]
+resource_name = "PapperSliding"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ListContainer/ToDoList/TaskCreationPapper:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.9, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.17453292519943295, 0.0, -0.17453292519943295, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ListContainer/ToDoList/TaskCreationPapper:z_index")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-1, 1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ListContainer/ToDoList/TaskCreationPapper:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(40, 30), Vector2(-180, 30), Vector2(40, 30)]
+}
+
+[sub_resource type="Animation" id="Animation_y4jh7"]
+resource_name = "PapperSliding2"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ListContainer/ToDoList/TaskCreationPapper:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 0.9, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [0.17453292519943295, 0.0, -0.17453292519943295, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ListContainer/ToDoList/TaskCreationPapper:z_index")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.5, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-1, 1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ListContainer/ToDoList/TaskCreationPapper:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(40, 30), Vector2(-180, 30), Vector2(40, 30)]
+}
+
+[sub_resource type="Animation" id="Animation_tr2i4"]
+resource_name = "PostItSliding"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ListContainer/ToDoList/PostitNote:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(2, 2),
+"points": PackedFloat32Array(260, -0.28987953, -111.12048, 0.3, 115, 370, -0.39999998, 15, 0, 0),
+"times": PackedFloat32Array(0, 1)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ListContainer/ToDoList/PostitNote:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(2, 2),
+"points": PackedFloat32Array(0, -0.19793534, -85.35961, 0.13333334, 57.5, 40, -0.6666666, -0.5, 0, 0),
+"times": PackedFloat32Array(0, 1)
+}
+
+[sub_resource type="Animation" id="Animation_nhkr4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ListContainer/ToDoList/TaskCreationPapper:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ListContainer/ToDoList/TaskCreationPapper:z_index")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [-1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ListContainer/ToDoList/TaskCreationPapper:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(40, 30)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_nhkr4"]
+_data = {
+&"PapperSliding": SubResource("Animation_qxria"),
+&"PapperSliding2": SubResource("Animation_y4jh7"),
+&"PostItSliding": SubResource("Animation_tr2i4"),
+&"RESET": SubResource("Animation_nhkr4")
+}
+
+[node name="Control" type="Control" unique_id=953130912 node_paths=PackedStringArray("TodoContainer", "AnimPlayer", "PostItNote", "PostItHitbox", "TaskCreationPapper")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_nhkr4")
+TaskScene = ExtResource("2_7rqgy")
+TodoContainer = NodePath("ListContainer/ToDoList/VBoxToDo")
+AnimPlayer = NodePath("AnimationPlayer")
+PostItNote = NodePath("ListContainer/ToDoList/PostitNote")
+PostItHitbox = NodePath("ListContainer/ToDoList/PostItHibox")
+TaskCreationPapper = NodePath("ListContainer/ToDoList/TaskCreationPapper")
+
+[node name="ListContainer" type="HBoxContainer" parent="." unique_id=601221473]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/separation = 200
+
+[node name="CompletedList" type="TextureRect" parent="ListContainer" unique_id=1174696983]
+layout_mode = 2
+texture = ExtResource("1_hpc76")
+
+[node name="VBoxCompleted" type="VBoxContainer" parent="ListContainer/CompletedList" unique_id=635630350]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.15
+anchor_top = 0.15
+anchor_right = 0.85
+anchor_bottom = 0.9
+offset_left = -20.000004
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+
+[node name="ToDoList" type="TextureRect" parent="ListContainer" unique_id=1505756167]
+layout_mode = 2
+texture = ExtResource("1_hpc76")
+
+[node name="VBoxToDo" type="VBoxContainer" parent="ListContainer/ToDoList" unique_id=1184739956]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.15
+anchor_top = 0.2
+anchor_right = 0.85
+anchor_bottom = 0.9
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 30
+
+[node name="Label" type="Label" parent="ListContainer/ToDoList" unique_id=932320438]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_top = 0.1
+anchor_right = 0.5
+anchor_bottom = 0.15
+offset_left = -0.5
+offset_top = -27.5
+offset_right = 0.5
+offset_bottom = 27.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Todays TodoList:"
+label_settings = SubResource("LabelSettings_hpc76")
+
+[node name="PostItHibox" type="Control" parent="ListContainer/ToDoList" unique_id=230310165]
+layout_mode = 1
+anchor_left = 0.65
+anchor_right = 0.9250001
+anchor_bottom = 0.135
+offset_right = -3.0517578e-05
+metadata/_edit_use_anchors_ = true
+
+[node name="Control" type="Control" parent="ListContainer/ToDoList/PostItHibox" unique_id=1708194276]
+z_index = -1
+anchors_preset = 0
+offset_left = -1.0
+offset_right = 219.0
+offset_bottom = 149.0
+
+[node name="PostitNote" parent="ListContainer/ToDoList" unique_id=1214223644 instance=ExtResource("2_tr2i4")]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -140.0
+offset_right = -30.0
+grow_horizontal = 0
+
+[node name="TaskCreationPapper" parent="ListContainer/ToDoList" unique_id=2080173714 instance=ExtResource("5_qxria")]
+z_index = -1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1
+anchor_top = 0.05
+anchor_right = 0.1
+anchor_bottom = 0.1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=818314645]
+libraries/ = SubResource("AnimationLibrary_nhkr4")
+speed_scale = 2.0

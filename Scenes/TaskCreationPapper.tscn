@@ -1,0 +1,217 @@
+[gd_scene format=3 uid="uid://bgnelrcr1r6cx"]
+
+[ext_resource type="Texture2D" uid="uid://1blymj1g0amg" path="res://Sprites/HolePapper.png" id="1_fc70o"]
+[ext_resource type="Texture2D" uid="uid://ccjhe6nbvec58" path="res://Sprites/TapedOnPapper.png" id="2_fc70o"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_7j811"]
+font_size = 15
+font_color = Color(0, 0, 0, 1)
+shadow_size = 0
+shadow_color = Color(0, 0, 0, 0.10980392)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ucs6g"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_nu30u"]
+font_size = 12
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p3t5w"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.16026929, 0.16026932, 0.1602692, 0.40784314)
+
+[sub_resource type="Animation" id="Animation_dnlvk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ExtraPapper:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ExtraPapper:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ExtraPapper:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.17453292519943295]
+}
+
+[sub_resource type="Animation" id="Animation_fc70o"]
+resource_name = "TapeOnPapper"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ExtraPapper:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(2.5, 2.5), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ExtraPapper:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ExtraPapper:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-0.3490658503988659, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dnlvk"]
+_data = {
+&"RESET": SubResource("Animation_dnlvk"),
+&"TapeOnPapper": SubResource("Animation_fc70o")
+}
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_o6t00"]
+bg_color = Color(0.1101476, 0.23117274, 0.13995114, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[node name="TaskCreationPapper" type="TextureRect" unique_id=2080173714]
+offset_right = 200.0
+offset_bottom = 300.0
+texture = ExtResource("1_fc70o")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="ExtraPapper" type="TextureRect" parent="." unique_id=1141506156]
+unique_name_in_owner = true
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 189.0
+offset_top = -2.0
+offset_right = 289.0
+offset_bottom = 48.0
+rotation = 0.17453292
+pivot_offset = Vector2(50, 25)
+texture = ExtResource("2_fc70o")
+stretch_mode = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1574666076]
+layout_mode = 0
+offset_left = 20.0
+offset_right = 130.0
+offset_bottom = 31.0
+size_flags_horizontal = 0
+
+[node name="Label" type="Label" parent="HBoxContainer" unique_id=1006433446]
+layout_mode = 2
+text = "Task:"
+label_settings = SubResource("LabelSettings_7j811")
+
+[node name="NameEditor" type="LineEdit" parent="HBoxContainer" unique_id=1143045407]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_placeholder_color = Color(0.3590698, 0.3590688, 0.35906905, 0.6)
+theme_override_constants/caret_width = 1
+theme_override_constants/minimum_character_width = 1
+theme_override_font_sizes/font_size = 14
+theme_override_styles/normal = SubResource("StyleBoxFlat_ucs6g")
+theme_override_styles/focus = SubResource("StyleBoxFlat_ucs6g")
+placeholder_text = "Input .."
+alignment = 3
+expand_to_text_length = true
+text_direction = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1587249331]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.1
+anchor_bottom = 0.15
+offset_left = 20.0
+offset_right = 190.0
+offset_bottom = 300.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 5
+
+[node name="Label" type="Label" parent="VBoxContainer" unique_id=349447657]
+layout_mode = 2
+text = "Description:"
+label_settings = SubResource("LabelSettings_nu30u")
+
+[node name="DescriptorEditor" type="TextEdit" parent="VBoxContainer" unique_id=1427356462]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 230)
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_placeholder_color = Color(0.28668404, 0.28668338, 0.28668353, 0.6)
+theme_override_constants/line_spacing = 3
+theme_override_font_sizes/font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_p3t5w")
+theme_override_styles/focus = SubResource("StyleBoxFlat_p3t5w")
+theme_override_styles/read_only = SubResource("StyleBoxFlat_p3t5w")
+wrap_mode = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1802559038]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_dnlvk")
+speed_scale = 10.0
+
+[node name="Submit" type="Button" parent="." unique_id=784964139]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.775
+anchor_top = 0.9433333
+anchor_right = 1.09
+anchor_bottom = 1.0466666
+theme_override_styles/normal = SubResource("StyleBoxFlat_o6t00")
+text = "Submit"
+metadata/_edit_use_anchors_ = true

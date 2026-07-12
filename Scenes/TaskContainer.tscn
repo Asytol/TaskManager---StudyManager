@@ -1,0 +1,153 @@
+[gd_scene format=3 uid="uid://7wwxyg361v6c"]
+
+[ext_resource type="Shader" uid="uid://dipq01y6iw6nh" path="res://Scripts/shaders/CircleShader.gdshader" id="1_xbn4q"]
+[ext_resource type="LabelSettings" uid="uid://df8gecgp1h1py" path="res://Scripts/Resources/StandardLabelSettings.tres" id="2_prhc4"]
+[ext_resource type="Texture2D" uid="uid://cos3aqoovnieo" path="res://Sprites/Star.png" id="3_u38u7"]
+[ext_resource type="Texture2D" uid="uid://ba0qr7r7nfja4" path="res://Sprites/ExpandButton.png" id="4_prhc4"]
+[ext_resource type="Texture2D" uid="uid://2abhcrhvnwn1" path="res://Sprites/CheckMark.png" id="5_5qe1q"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_uvkwm"]
+shader = ExtResource("1_xbn4q")
+
+[sub_resource type="LabelSettings" id="LabelSettings_xbn4q"]
+font_size = 8
+font_color = Color(0.15912649, 1.2559117e-07, 3.008172e-08, 1)
+shadow_size = 5
+shadow_color = Color(0, 0, 0, 0.10980392)
+
+[node name="Task" type="Control" unique_id=776028129]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=570558735]
+material = SubResource("ShaderMaterial_uvkwm")
+layout_mode = 0
+offset_right = 15.0
+offset_bottom = 15.0
+color = Color(0, 0, 0, 1)
+
+[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect" unique_id=1967160365]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -0.25
+anchor_bottom = -0.25
+offset_left = 30.0
+offset_top = -1.0
+offset_right = 137.0
+offset_bottom = 21.0
+
+[node name="TaskName Container" type="MarginContainer" parent="ColorRect/HBoxContainer" unique_id=739428290]
+layout_mode = 2
+theme_override_constants/margin_left = 0
+
+[node name="TaskName" type="Label" parent="ColorRect/HBoxContainer/TaskName Container" unique_id=1859618008]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Insert task"
+label_settings = ExtResource("2_prhc4")
+
+[node name="RepeatNum Container" type="MarginContainer" parent="ColorRect/HBoxContainer" unique_id=1383283074]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme_override_constants/margin_left = 40
+
+[node name="RepeatNum" type="Label" parent="ColorRect/HBoxContainer/RepeatNum Container" unique_id=496548291]
+unique_name_in_owner = true
+layout_mode = 2
+text = "0"
+label_settings = ExtResource("2_prhc4")
+
+[node name="TextureRect" type="TextureRect" parent="ColorRect/HBoxContainer" unique_id=1451512081]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="ColorRect/HBoxContainer" unique_id=665782235]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="ColorRect/HBoxContainer/Control" unique_id=2061539009]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -16.0
+offset_top = -16.0
+offset_right = 16.0
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.5, 0.5)
+pivot_offset = Vector2(16, 16)
+texture = ExtResource("3_u38u7")
+
+[node name="MarginContainer" type="MarginContainer" parent="ColorRect/HBoxContainer" unique_id=1161032979]
+layout_mode = 2
+size_flags_horizontal = 8
+theme_override_constants/margin_left = 150
+theme_override_constants/margin_top = 20
+
+[node name="DeadlineLabel" type="Label" parent="ColorRect" unique_id=311812809]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -0.9
+anchor_bottom = -0.9
+offset_top = 31.400002
+offset_right = 125.0
+offset_bottom = 54.4
+text = "Deadline:"
+label_settings = SubResource("LabelSettings_xbn4q")
+
+[node name="ColorRect2" type="ColorRect" parent="." unique_id=974802670]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.05
+anchor_right = 1.0
+anchor_bottom = 0.05
+color = Color(0, 0, 0, 1)
+
+[node name="Control" type="Control" parent="." unique_id=1368447515]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+size_flags_horizontal = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control" unique_id=1874533039]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -85.0
+offset_top = -16.0
+offset_bottom = 16.0
+grow_horizontal = 0
+grow_vertical = 2
+scale = Vector2(0.6, 0.6)
+pivot_offset = Vector2(0, 56)
+theme_override_constants/separation = 21
+
+[node name="Options" type="TextureButton" parent="Control/HBoxContainer" unique_id=119203680]
+unique_name_in_owner = true
+layout_mode = 2
+texture_normal = ExtResource("4_prhc4")
+texture_pressed = ExtResource("4_prhc4")
+texture_hover = ExtResource("4_prhc4")
+texture_disabled = ExtResource("4_prhc4")
+texture_focused = ExtResource("4_prhc4")
+
+[node name="CheckMark" type="TextureButton" parent="Control/HBoxContainer" unique_id=2046340947]
+unique_name_in_owner = true
+layout_mode = 2
+texture_normal = ExtResource("5_5qe1q")
+texture_pressed = ExtResource("5_5qe1q")
+texture_hover = ExtResource("5_5qe1q")
+texture_disabled = ExtResource("5_5qe1q")
+texture_focused = ExtResource("5_5qe1q")

@@ -1,0 +1,6 @@
+[gd_resource type="Resource" format=3 uid="uid://ruefunq7kpfr"]
+
+[ext_resource type="Script" uid="uid://7b0kb6gvsarl" path="res://Scripts/cs_scripts/TaskContainerSaveCs.cs" id="1_oskat"]
+
+[resource]
+script = ExtResource("1_oskat")

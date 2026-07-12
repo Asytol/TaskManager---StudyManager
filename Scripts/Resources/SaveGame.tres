@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="SaveGame" format=3 uid="uid://dnby3euxurpal"]
+
+[ext_resource type="Script" uid="uid://bx4m8m5gn43nd" path="res://Scripts/cs_scripts/SaveGame.cs" id="1_1ecyw"]
+[ext_resource type="Script" uid="uid://7b0kb6gvsarl" path="res://Scripts/cs_scripts/TaskContainerSaveCs.cs" id="1_hfqep"]
+
+[resource]
+script = ExtResource("1_1ecyw")
