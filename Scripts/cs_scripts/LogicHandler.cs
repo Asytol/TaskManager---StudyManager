@@ -4,7 +4,8 @@ using System.Threading.Tasks;
 
 public partial class LogicHandler : Node
 {
-	public SaveGame SaveGame;
+	public static LogicHandler LogicInstance;
+	public static SaveGame SaveGame;
 
 	// Called when the node enters the scene tree for the first time.
 	[Export] public PackedScene TaskScene;
@@ -28,19 +29,26 @@ public partial class LogicHandler : Node
 
 	private bool HoveringOnPostit = false;
 	private bool PostItOut = false;
+
+
+	
 	public override void _Ready()
 	{
 		LoadOrInitializeSave();
-		SaveGame.WriteSaveGame();
+		//SaveGame.WriteSaveGame();
 		InitializeTasks(TodoContainer,SaveGame);
 		
 
 		//Postit note hitboxes
+		// --__--
 		PostItHitbox.MouseEntered += RevealPostIt;
 		PostItHitbox.GetChild<Control>(0).MouseExited += ConsealPostIt;
 
-		PostItNote.GetNode<Button>("%Button").MouseEntered += HOP; PostItNote.GetNode<Button>("%Button").MouseExited += NHOP;
-		PostItNote.GetNode<Button>("%Button").ButtonUp += RevealTaskCreationPapper;
+		//PostitButton
+		Button PostItButton = PostItNote.GetNode<Button>("%Button");
+		PostItButton.MouseEntered += HOP; 
+		PostItButton.MouseExited += NHOP;
+		PostItButton.ButtonUp += RevealTaskCreationPapper;
 
 		PostItHitbox.MouseFilter = Control.MouseFilterEnum.Stop;
 		PostItHitbox.GetChild<Control>(0).MouseFilter = Control.MouseFilterEnum.Ignore;
@@ -57,7 +65,7 @@ public partial class LogicHandler : Node
 
 		TaskCreationPapper.GetNode<AnimationPlayer>("%AnimationPlayer");
 
-		SaveGame.WriteSaveGame();
+		LogicInstance = this;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -75,6 +83,18 @@ public partial class LogicHandler : Node
 			SaveGame = new SaveGame();
 			SaveGame.WriteSaveGame();
 		}
+	}
+	public static SaveGame GetSaveGame()
+	{
+		return SaveGame;
+	}
+	public static LogicHandler GetLogicHandler()
+	{
+		if (LogicInstance != null)
+		{
+			return LogicInstance;
+		}
+		return null;
 	}
 
 	public void InitializeTasks(VBoxContainer Container,SaveGame SaveFile)
@@ -171,10 +191,13 @@ public partial class LogicHandler : Node
 		Date TempDate = new Date(date.Year,date.Month,date.Day);
 
 		SaveGame.AddTaskContainer(TempName,TempDescription,TempDate);
-		TempName = "";
-		TempDescription = "";
+		SaveGame.WriteSaveGame();
+
 		InitializeTasks(TodoContainer,SaveGame);
 		AnimPlayer.PlayBackwards("PapperSliding2");
+
+		TempName = "";
+		TempDescription = "";
 	}
 
 	public void CheckLineEditOverflow(string text)

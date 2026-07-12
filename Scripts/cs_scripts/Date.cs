@@ -29,7 +29,7 @@ public partial class Date : Resource
 			return false;
 		}
 
-		if (TaskDate.Month < CurrentDate.Month)
+		if (TaskDate.Month < CurrentDate.Month+2)
 		{
 			return true;
 		}
@@ -38,7 +38,7 @@ public partial class Date : Resource
 			return false;
 		}
 
-		if (TaskDate.Day <= CurrentDate.Day+10)
+		if (TaskDate.Day <= CurrentDate.Day+30)
 		{
 			return true;
 		}

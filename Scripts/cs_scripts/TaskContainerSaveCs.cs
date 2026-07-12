@@ -53,6 +53,15 @@ public partial class TaskContainerSaveCs : Resource
 				//Delete task or maybe put it in a permanently completed tab
 				break;
 		}
+		
+		SaveGame save = LogicHandler.GetSaveGame();
+		save.WriteSaveGame();
+
+		LogicHandler Handler = LogicHandler.GetLogicHandler();
+		if (Handler != null)
+		{
+			Handler.InitializeTasks(Handler.TodoContainer,save);
+		}
 	}
 
 	public static Date ExpandDate(Date DeadLine, int DaysMore){

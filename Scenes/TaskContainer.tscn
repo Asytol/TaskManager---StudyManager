@@ -5,6 +5,8 @@
 [ext_resource type="Texture2D" uid="uid://cos3aqoovnieo" path="res://Sprites/Star.png" id="3_u38u7"]
 [ext_resource type="Texture2D" uid="uid://ba0qr7r7nfja4" path="res://Sprites/ExpandButton.png" id="4_prhc4"]
 [ext_resource type="Texture2D" uid="uid://2abhcrhvnwn1" path="res://Sprites/CheckMark.png" id="5_5qe1q"]
+[ext_resource type="Texture2D" uid="uid://bgvta8pqppy0k" path="res://Sprites/CheckMarkPressed.png" id="6_4wcks"]
+[ext_resource type="Texture2D" uid="uid://bp2iuufda15lk" path="res://Sprites/CheckMarkHover.png" id="7_euekp"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uvkwm"]
 shader = ExtResource("1_xbn4q")
@@ -147,7 +149,7 @@ texture_focused = ExtResource("4_prhc4")
 unique_name_in_owner = true
 layout_mode = 2
 texture_normal = ExtResource("5_5qe1q")
-texture_pressed = ExtResource("5_5qe1q")
-texture_hover = ExtResource("5_5qe1q")
+texture_pressed = ExtResource("6_4wcks")
+texture_hover = ExtResource("7_euekp")
 texture_disabled = ExtResource("5_5qe1q")
 texture_focused = ExtResource("5_5qe1q")
