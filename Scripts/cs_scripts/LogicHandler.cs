@@ -1,5 +1,6 @@
 using Godot;
 using System;
+using System.Diagnostics;
 using System.Threading.Tasks;
 
 public partial class LogicHandler : Node
@@ -10,6 +11,7 @@ public partial class LogicHandler : Node
 	// Called when the node enters the scene tree for the first time.
 	[Export] public PackedScene TaskScene;
 	[Export] public VBoxContainer TodoContainer;
+	[Export] public VBoxContainer UpcomingContainer;
 
 	//  ______________________________________________________
 	//PostitNote and creating Tasks __--__
@@ -36,7 +38,7 @@ public partial class LogicHandler : Node
 	{
 		LoadOrInitializeSave();
 		//SaveGame.WriteSaveGame();
-		InitializeTasks(TodoContainer,SaveGame);
+		InitializeTasks(SaveGame);
 		
 
 		//Postit note hitboxes
@@ -60,12 +62,18 @@ public partial class LogicHandler : Node
 		NewDescriptorEditor = TaskCreationPapper.GetNode<TextEdit>("%DescriptorEditor");
 		TaskCreationPapper.GetNode<TextEdit>("%DescriptorEditor").TextChanged += OnDescriptionEdited;
 		TaskCreationPapper.GetNode<Button>("%Submit").ButtonUp += SubmitTask;
+	
+		TextureButton UpcomingBookmark = GetNode<TextureButton>("%UpcomingBookmark");
+		UpcomingBookmark.MouseEntered += () => ScheduleAnimation("BookMarkExtend");
+		UpcomingBookmark.MouseExited += () => ScheduleAnimation("BookMarkExtend",true);
+		UpcomingBookmark.ButtonUp += () => SwitchPapper(2);
 		
 		NewTaskNameEditor.TextChanged += CheckLineEditOverflow;
 
 		TaskCreationPapper.GetNode<AnimationPlayer>("%AnimationPlayer");
 
 		LogicInstance = this;
+
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -97,10 +105,15 @@ public partial class LogicHandler : Node
 		return null;
 	}
 
-	public void InitializeTasks(VBoxContainer Container,SaveGame SaveFile)
+	public void InitializeTasks(SaveGame SaveFile)
 	{
 		//Clear TaskList
-		foreach (Node child in Container.GetChildren())
+		foreach (Node child in TodoContainer.GetChildren())
+		{
+			child.QueueFree();	
+		}
+
+		foreach (Node child in UpcomingContainer.GetChildren())
 		{
 			child.QueueFree();	
 		}
@@ -111,31 +124,39 @@ public partial class LogicHandler : Node
 		{
 			TaskContainerSaveCs TaskContainer = SaveFile.TaskContainers[i]; 
 			
+			if (TaskContainer.Cleared == true)
+			{
+				return;				
+			}
+			Node Instance = TaskScene.Instantiate();
+
+			//All GameObjects
+			Label TaskName = Instance.GetNode<Label>("%TaskName");
+			Label DeadlineLabel = Instance.GetNode<Label>("%DeadlineLabel");
+			Label RepeatNum = Instance.GetNode<Label>("%RepeatNum");
+			TextureButton Options = Instance.GetNode<TextureButton>("%Options");
+			TextureButton CheckMark = Instance.GetNode<TextureButton>("%CheckMark");
+
+			TaskName.Text = TaskContainer.Name;
+			RepeatNum.Text = TaskContainer.TimesRepeated.ToString();
+			// __--__                   __--__
+			if (TaskContainer.DeadLine != null)
+			{
+				Date Deadline = TaskContainer.DeadLine;
+				DeadlineLabel.Text = "Deadline: " + $"{Deadline.Year}/{Deadline.Month}/{Deadline.Day}";	
+			}
 			//Checks if deadline is before currentdate
 			if (Date.CheckIfPassed(TaskContainer.DeadLine) == true)
-			{
-				Node Instance = TaskScene.Instantiate();
-
-				//All GameObjects
-				Label TaskName = Instance.GetNode<Label>("%TaskName");
-				Label DeadlineLabel = Instance.GetNode<Label>("%DeadlineLabel");
-				Label RepeatNum = Instance.GetNode<Label>("%RepeatNum");
-				TextureButton Options = Instance.GetNode<TextureButton>("%Options");
-				TextureButton CheckMark = Instance.GetNode<TextureButton>("%CheckMark");
-				// __--__                   __--__
-
-				TaskName.Text = TaskContainer.Name;
-				RepeatNum.Text = TaskContainer.TimesRepeated.ToString();
+			{	
 				//Options.ButtonUp += Function;
 				CheckMark.ButtonUp += TaskContainer.Completed;
-
-				if (TaskContainer.DeadLine != null)
-				{
-					Date Deadline = TaskContainer.DeadLine;
-					DeadlineLabel.Text = "Deadline: " + $"{Deadline.Year}/{Deadline.Month}/{Deadline.Day}";	
-				}
-
-				Container.AddChild(Instance);	
+				TodoContainer.AddChild(Instance);	
+			}
+			else
+			{
+				CheckMark.Visible = false;
+				Options.Visible = false;
+				UpcomingContainer.AddChild(Instance);
 			}
 		}	
 	}
@@ -144,10 +165,9 @@ public partial class LogicHandler : Node
 	{
 		if (PostItOut == false)
 		{
-			if (AlreadyAnimating){await ToSignal(AnimPlayer,"animation_finished");}
+			await ScheduleAnimation("PostItSliding",false);
 			PostItHitbox.MouseFilter = Control.MouseFilterEnum.Ignore;
 			
-			AnimPlayer.Play("PostItSliding");
 			await ToSignal(AnimPlayer,"animation_finished");
 			PostItHitbox.GetChild<Control>(0).MouseFilter = Control.MouseFilterEnum.Stop;
 			PostItOut = true;	
@@ -157,15 +177,15 @@ public partial class LogicHandler : Node
 	{
 		await ToSignal(GetTree(),SceneTree.SignalName.ProcessFrame);
 		if (AlreadyAnimating){await ToSignal(AnimPlayer,"animation_finished");}
-		ConsealPostItFollowUp();
+		await ConsealPostItFollowUp();
 	}
-	public void ConsealPostItFollowUp()
+	public async Task ConsealPostItFollowUp()
 	{
 		if (PostItOut == true && HoveringOnPostit == false)
 		{
 			PostItHitbox.MouseFilter = Control.MouseFilterEnum.Stop;
 			PostItHitbox.GetChild<Control>(0).MouseFilter = Control.MouseFilterEnum.Ignore;
-			AnimPlayer.PlayBackwards("PostItSliding");
+			await ScheduleAnimation("PostItSliding",true);
 			PostItOut = false;	
 		}
 	}
@@ -173,8 +193,46 @@ public partial class LogicHandler : Node
 
 	public async void RevealTaskCreationPapper()
 	{
-		if (AlreadyAnimating){await ToSignal(AnimPlayer,"animation_finished");}
-		AnimPlayer.Play("PapperSliding");
+		await ScheduleAnimation("PapperSliding",false);
+	}
+
+	public int CurrentPapperNum = 1;
+	public async void SwitchPapper(int PapperNum)
+	{
+		string Animation = "SwitchPapper";
+		if (CurrentPapperNum < PapperNum)
+		{
+			switch (PapperNum)
+			{
+				case 3:
+					await ScheduleAnimation(Animation + "1");
+					await ScheduleAnimation(Animation + "2");
+					CurrentPapperNum = 3;
+					break;
+				case 2:
+					await ScheduleAnimation(Animation + "1");
+					CurrentPapperNum = 2;
+					break;
+			}
+			return;
+		}
+		if (CurrentPapperNum > PapperNum)
+		{
+			switch (PapperNum)
+			{
+				case 2:
+					await ScheduleAnimation(Animation + "2",true);
+					CurrentPapperNum = 2;
+					break;
+				case 1:
+					await ScheduleAnimation(Animation + "2",true);
+					await ScheduleAnimation(Animation + "1",true);
+					CurrentPapperNum = 2;
+					break;
+			}
+			return;
+		}
+		
 	}
 	public void OnNameEdited(string Name)
 	{
@@ -193,20 +251,20 @@ public partial class LogicHandler : Node
 		SaveGame.AddTaskContainer(TempName,TempDescription,TempDate);
 		SaveGame.WriteSaveGame();
 
-		InitializeTasks(TodoContainer,SaveGame);
+		InitializeTasks(SaveGame);
 		AnimPlayer.PlayBackwards("PapperSliding2");
 
 		TempName = "";
 		TempDescription = "";
 	}
 
-	public void CheckLineEditOverflow(string text)
+	public async void CheckLineEditOverflow(string text)
 	{
 		if (text.Length >= 13)
 		{
 			if (ExtraPapperUsed == false)
 			{
-				TaskCreationPapper.GetNode<AnimationPlayer>("%AnimationPlayer").Play("TapeOnPapper");	
+				await ScheduleAnimation("TapeOnPapper",false);
 			 	ExtraPapperUsed = true;	
 			}
 			return;
@@ -218,6 +276,18 @@ public partial class LogicHandler : Node
 		}
 	}
 
+	public async Task ScheduleAnimation(string Name, bool PlayBackwards = false)
+	{
+		if (AlreadyAnimating){await ToSignal(AnimPlayer,"animation_finished");}
+		
+
+		if (PlayBackwards == true)
+		{
+			AnimPlayer.PlayBackwards(Name);
+			return;
+		}
+		AnimPlayer.Play(Name);
+	}
 
 	public void HOP(){ HoveringOnPostit = true;}
 	public void NHOP(){ HoveringOnPostit = false;}

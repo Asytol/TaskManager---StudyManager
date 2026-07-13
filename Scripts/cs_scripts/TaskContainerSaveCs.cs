@@ -11,6 +11,7 @@ public partial class TaskContainerSaveCs : Resource
 	[Export] public Date CreatedOn;
 	[Export] public Date DeadLine;
 	[Export] public int TimesRepeated = 0;
+	public bool Cleared;
 
 	[Export] public int IndexNumber;
 
@@ -50,6 +51,7 @@ public partial class TaskContainerSaveCs : Resource
 				DeadLine = ExpandDate(DeadLine,60);
 				break;
 			case 6:
+				this.Cleared = true;
 				//Delete task or maybe put it in a permanently completed tab
 				break;
 		}
@@ -60,7 +62,7 @@ public partial class TaskContainerSaveCs : Resource
 		LogicHandler Handler = LogicHandler.GetLogicHandler();
 		if (Handler != null)
 		{
-			Handler.InitializeTasks(Handler.TodoContainer,save);
+			Handler.InitializeTasks(save);
 		}
 	}
 
