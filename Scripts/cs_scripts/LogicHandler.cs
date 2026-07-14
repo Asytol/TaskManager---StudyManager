@@ -12,6 +12,7 @@ public partial class LogicHandler : Node
 	[Export] public PackedScene TaskScene;
 	[Export] public VBoxContainer TodoContainer;
 	[Export] public VBoxContainer UpcomingContainer;
+	[Export] public VBoxContainer CompletedContainer;
 
 	//  ______________________________________________________
 	//PostitNote and creating Tasks __--__
@@ -25,14 +26,17 @@ public partial class LogicHandler : Node
 	private bool ExtraPapperUsed = false;
 	private string TempName;
 	private string TempDescription;
+	private Godot.Collections.Array<string> TempLinks = [];
 	private LineEdit NewTaskNameEditor;
 	private TextEdit NewDescriptorEditor;
+
+	[Export] private TextureRect TaskInfoPapper;
 	
 
 	private bool HoveringOnPostit = false;
 	private bool PostItOut = false;
 
-
+	
 	
 	public override void _Ready()
 	{
@@ -62,11 +66,35 @@ public partial class LogicHandler : Node
 		NewDescriptorEditor = TaskCreationPapper.GetNode<TextEdit>("%DescriptorEditor");
 		TaskCreationPapper.GetNode<TextEdit>("%DescriptorEditor").TextChanged += OnDescriptionEdited;
 		TaskCreationPapper.GetNode<Button>("%Submit").ButtonUp += SubmitTask;
-	
+		ChangeTaskCreationMouseFilter(Control.MouseFilterEnum.Ignore);
+
+		int i = 0;
+		foreach (Node child in TaskCreationPapper.GetNode<VBoxContainer>("%LinkContainer").GetChildren())
+		{
+			if (child is LineEdit LinkEdit)
+			{
+				LinkEdit.TextChanged += (string text) => OnLinkEdited(text, i);
+				i++;
+			}
+		}
+		TempLinks.Resize(i+1);
+		
+
+		TextureButton ToDoBookmark = GetNode<TextureButton>("%ToDoBookmark");
+		ToDoBookmark.MouseEntered += async () => await ScheduleAnimation("BookMarkExtend1");
+		ToDoBookmark.MouseExited += async () => await ScheduleAnimation("BookMarkExtend1",true);
+		ToDoBookmark.ButtonUp += () => SwitchPapper(1);
+
 		TextureButton UpcomingBookmark = GetNode<TextureButton>("%UpcomingBookmark");
-		UpcomingBookmark.MouseEntered += () => ScheduleAnimation("BookMarkExtend");
-		UpcomingBookmark.MouseExited += () => ScheduleAnimation("BookMarkExtend",true);
+		UpcomingBookmark.MouseEntered += async () => await ScheduleAnimation("BookMarkExtend2");
+		UpcomingBookmark.MouseExited += async () => await ScheduleAnimation("BookMarkExtend2",true);
 		UpcomingBookmark.ButtonUp += () => SwitchPapper(2);
+
+		TextureButton CompletedBookmark = GetNode<TextureButton>("%CompletedBookmark");
+		CompletedBookmark.MouseEntered += async () => await ScheduleAnimation("BookMarkExtend3");
+		CompletedBookmark.MouseExited += async () => await ScheduleAnimation("BookMarkExtend3",true);
+		CompletedBookmark.ButtonUp += () => SwitchPapper(3);
+		
 		
 		NewTaskNameEditor.TextChanged += CheckLineEditOverflow;
 
@@ -124,10 +152,6 @@ public partial class LogicHandler : Node
 		{
 			TaskContainerSaveCs TaskContainer = SaveFile.TaskContainers[i]; 
 			
-			if (TaskContainer.Cleared == true)
-			{
-				return;				
-			}
 			Node Instance = TaskScene.Instantiate();
 
 			//All GameObjects
@@ -137,8 +161,17 @@ public partial class LogicHandler : Node
 			TextureButton Options = Instance.GetNode<TextureButton>("%Options");
 			TextureButton CheckMark = Instance.GetNode<TextureButton>("%CheckMark");
 
+			
+
 			TaskName.Text = TaskContainer.Name;
 			RepeatNum.Text = TaskContainer.TimesRepeated.ToString();
+			if (TaskContainer.Cleared == true)
+			{
+				CheckMark.Visible = false;
+				Options.Visible = false;
+				CompletedContainer.AddChild(Instance);
+				return;				
+			}
 			// __--__                   __--__
 			if (TaskContainer.DeadLine != null)
 			{
@@ -150,6 +183,7 @@ public partial class LogicHandler : Node
 			{	
 				//Options.ButtonUp += Function;
 				CheckMark.ButtonUp += TaskContainer.Completed;
+				Options.ButtonUp += () => RevealTaskInfoPapper(TaskContainer);
 				TodoContainer.AddChild(Instance);	
 			}
 			else
@@ -194,45 +228,98 @@ public partial class LogicHandler : Node
 	public async void RevealTaskCreationPapper()
 	{
 		await ScheduleAnimation("PapperSliding",false);
+		ChangeTaskCreationMouseFilter(Control.MouseFilterEnum.Stop);
+	}
+
+	public async void RevealTaskInfoPapper(TaskContainerSaveCs TaskContainer)
+	{
+		TaskInfoPapper.GetNode<Label>("%TaskName").Text = TaskContainer.Name;
+		TaskInfoPapper.GetNode<TextEdit>("%Descriptor").Text = TaskContainer.Description;
+		TaskInfoPapper.GetNode<Label>("%TimesRepeated").Text = "Times repeated: " + TaskContainer.TimesRepeated;
+
+		sbyte i = 0;
+		foreach (Node child in TaskInfoPapper.GetNode<VBoxContainer>("%LinkContainer").GetChildren())
+		{
+			if (child is LinkButton button)
+			{
+				if (TaskContainer.Links.Count <= i)
+				{		
+					break;
+				}
+				button.Uri = TaskContainer.Links[i];
+
+				
+				sbyte CharNum = 0;
+				char[] NewString = [];
+
+				for (sbyte id = 0;id < TaskContainer.Links.Count; id++,CharNum++)
+				{
+					if (TaskContainer.Links[i][id] == '.')
+					{
+						if (id != CharNum)
+						{
+							TaskContainer.Links[i].CopyTo(id-CharNum+1,NewString,0,CharNum+1);
+						}
+						CharNum = 0;
+					}
+				}
+				button.Text = $"Link{i+1}: {new string(NewString)}";
+
+				i++;
+			}
+		}
+
+		await ScheduleAnimation("TaskInfoOut");
+	}
+	public async void ConsealTaskInfoPapper()
+	{
+		foreach (Node child in TaskInfoPapper.GetNode<VBoxContainer>("%LinkContainer").GetChildren())
+		{
+			if (child is LinkButton button)
+			{
+				button.Text = "No_Link";
+				button.Uri = "";
+			}
+		}
+		await ScheduleAnimation("TaskInfoOut");
+	}
+	private void ChangeTaskCreationMouseFilter(Godot.Control.MouseFilterEnum Filter)
+	{
+		LineEdit NameEditor = TaskCreationPapper.GetNode<LineEdit>("%NameEditor");
+		TextEdit TextEditor = TaskCreationPapper.GetNode<TextEdit>("%DescriptorEditor");
+		Button SubmitButton = TaskCreationPapper.GetNode<Button>("%Submit");
+	
+		NameEditor.MouseFilter = Filter;
+		TextEditor.MouseFilter = Filter;
+		SubmitButton.MouseFilter = Filter;
+		foreach (Node child in TaskCreationPapper.GetNode<VBoxContainer>("%LinkContainer").GetChildren())
+		{
+			if (child is LineEdit LinkEdit)
+			{
+				LinkEdit.MouseFilter = Filter;
+			}
+		}
 	}
 
 	public int CurrentPapperNum = 1;
 	public async void SwitchPapper(int PapperNum)
 	{
 		string Animation = "SwitchPapper";
-		if (CurrentPapperNum < PapperNum)
+		string BookmarkAnimation = "BookMarkSlide";
+		while (CurrentPapperNum != PapperNum)
 		{
-			switch (PapperNum)
+			if (CurrentPapperNum < PapperNum)
 			{
-				case 3:
-					await ScheduleAnimation(Animation + "1");
-					await ScheduleAnimation(Animation + "2");
-					CurrentPapperNum = 3;
-					break;
-				case 2:
-					await ScheduleAnimation(Animation + "1");
-					CurrentPapperNum = 2;
-					break;
+				await ScheduleAnimation(Animation + CurrentPapperNum.ToString());
+				await ScheduleAnimation(BookmarkAnimation + CurrentPapperNum.ToString());
+				CurrentPapperNum++;
+				continue;
 			}
-			return;
+
+			CurrentPapperNum--;
+			await ScheduleAnimation(Animation + CurrentPapperNum.ToString(),true);
+			await ScheduleAnimation(BookmarkAnimation + CurrentPapperNum.ToString(),true);
 		}
-		if (CurrentPapperNum > PapperNum)
-		{
-			switch (PapperNum)
-			{
-				case 2:
-					await ScheduleAnimation(Animation + "2",true);
-					CurrentPapperNum = 2;
-					break;
-				case 1:
-					await ScheduleAnimation(Animation + "2",true);
-					await ScheduleAnimation(Animation + "1",true);
-					CurrentPapperNum = 2;
-					break;
-			}
-			return;
-		}
-		
 	}
 	public void OnNameEdited(string Name)
 	{
@@ -242,20 +329,26 @@ public partial class LogicHandler : Node
 	{
 		TempDescription = TaskCreationPapper.GetNode<TextEdit>("%DescriptorEditor").Text;;
 	}
+	public void OnLinkEdited(string Text,int IndexNumber)
+	{
+		TempLinks[IndexNumber] = Text;
+	}
 
 	public void SubmitTask()
 	{
 		DateTime date = DateTime.Today;
 		Date TempDate = new Date(date.Year,date.Month,date.Day);
 
-		SaveGame.AddTaskContainer(TempName,TempDescription,TempDate);
+		SaveGame.AddTaskContainer(TempName,TempDescription,TempDate,TempLinks);
 		SaveGame.WriteSaveGame();
 
 		InitializeTasks(SaveGame);
 		AnimPlayer.PlayBackwards("PapperSliding2");
+		ChangeTaskCreationMouseFilter(Control.MouseFilterEnum.Ignore);
 
 		TempName = "";
 		TempDescription = "";
+		TempLinks.Clear();
 	}
 
 	public async void CheckLineEditOverflow(string text)

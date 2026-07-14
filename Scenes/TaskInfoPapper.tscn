@@ -1,0 +1,221 @@
+[gd_scene format=3 uid="uid://qdurver0go"]
+
+[ext_resource type="Texture2D" uid="uid://1blymj1g0amg" path="res://Sprites/HolePapper.png" id="1_86cpv"]
+[ext_resource type="Texture2D" uid="uid://ccjhe6nbvec58" path="res://Sprites/TapedOnPapper.png" id="2_s5a0k"]
+[ext_resource type="LabelSettings" uid="uid://df8gecgp1h1py" path="res://Scripts/Resources/StandardLabelSettings.tres" id="3_s5a0k"]
+[ext_resource type="Texture2D" uid="uid://75vwgiykv1td" path="res://Sprites/PostItNote.png" id="4_m868e"]
+
+[sub_resource type="Animation" id="Animation_dnlvk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ExtraPapper:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ExtraPapper:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ExtraPapper:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.17453292519943295]
+}
+
+[sub_resource type="Animation" id="Animation_fc70o"]
+resource_name = "TapeOnPapper"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ExtraPapper:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(2.5, 2.5), Vector2(1, 1)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("ExtraPapper:self_modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("ExtraPapper:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.9),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-0.3490658503988659, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dnlvk"]
+_data = {
+&"RESET": SubResource("Animation_dnlvk"),
+&"TapeOnPapper": SubResource("Animation_fc70o")
+}
+
+[sub_resource type="LabelSettings" id="LabelSettings_fej6t"]
+font_size = 12
+font_color = Color(0, 0, 0, 1)
+shadow_size = 5
+shadow_color = Color(0, 0, 0, 0.10980392)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p3t5w"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.16026929, 0.16026932, 0.1602692, 0.40784314)
+
+[node name="TaskInfoPapper" type="TextureRect" unique_id=2080173714]
+offset_right = 200.0
+offset_bottom = 300.0
+texture = ExtResource("1_86cpv")
+expand_mode = 1
+stretch_mode = 2
+
+[node name="ExtraPapper" type="TextureRect" parent="." unique_id=1141506156]
+unique_name_in_owner = true
+visible = false
+self_modulate = Color(1, 1, 1, 0)
+layout_mode = 0
+offset_left = 189.0
+offset_top = -2.0
+offset_right = 289.0
+offset_bottom = 48.0
+rotation = 0.17453292
+pivot_offset = Vector2(50, 25)
+texture = ExtResource("2_s5a0k")
+stretch_mode = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1802559038]
+unique_name_in_owner = true
+libraries/ = SubResource("AnimationLibrary_dnlvk")
+speed_scale = 10.0
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=845899006]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.5
+anchor_top = 1.2
+anchor_right = 1.5
+anchor_bottom = 1.2
+offset_left = -110.0
+offset_top = -110.0
+grow_horizontal = 0
+grow_vertical = 0
+texture = ExtResource("4_m868e")
+
+[node name="Label" type="Label" parent="TextureRect" unique_id=73766574]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -43.5
+offset_top = -38.5
+offset_right = 43.5
+offset_bottom = 38.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Don't sweat it, 
+you're doing 
+good lad (:
+Keep learning"
+label_settings = SubResource("LabelSettings_fej6t")
+horizontal_alignment = 1
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="." unique_id=533598725]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1
+anchor_right = 0.75
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TaskName" type="Label" parent="VBoxContainer2" unique_id=90881345]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Task name"
+label_settings = ExtResource("3_s5a0k")
+horizontal_alignment = 1
+
+[node name="Descriptor" type="TextEdit" parent="VBoxContainer2" unique_id=1427356462]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 170)
+layout_mode = 2
+theme_override_colors/caret_color = Color(0, 0, 0, 1)
+theme_override_colors/selection_color = Color(0, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_readonly_color = Color(0, 0, 0, 1)
+theme_override_colors/font_placeholder_color = Color(0.28668404, 0.28668338, 0.28668353, 0.6)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/line_spacing = 3
+theme_override_font_sizes/font_size = 10
+theme_override_styles/normal = SubResource("StyleBoxFlat_p3t5w")
+theme_override_styles/focus = SubResource("StyleBoxFlat_p3t5w")
+theme_override_styles/read_only = SubResource("StyleBoxFlat_p3t5w")
+placeholder_text = "This task has no description.."
+editable = false
+wrap_mode = 1
+
+[node name="LinkContainer" type="VBoxContainer" parent="VBoxContainer2" unique_id=634814771]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Link1" type="LinkButton" parent="VBoxContainer2/LinkContainer" unique_id=1115425928]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+text = "No_Link"
+metadata/_edit_use_anchors_ = true
+
+[node name="Link2" type="LinkButton" parent="VBoxContainer2/LinkContainer" unique_id=1561845563]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 8
+text = "No_Link"
+metadata/_edit_use_anchors_ = true
+
+[node name="TimesRepeated" type="Label" parent="VBoxContainer2" unique_id=1135594701]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Times repeated:"
+label_settings = ExtResource("3_s5a0k")

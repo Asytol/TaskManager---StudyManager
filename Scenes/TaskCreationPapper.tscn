@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://1blymj1g0amg" path="res://Sprites/HolePapper.png" id="1_fc70o"]
 [ext_resource type="Texture2D" uid="uid://ccjhe6nbvec58" path="res://Sprites/TapedOnPapper.png" id="2_fc70o"]
+[ext_resource type="LabelSettings" uid="uid://df8gecgp1h1py" path="res://Scripts/Resources/StandardLabelSettings.tres" id="3_dnlvk"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_7j811"]
 font_size = 15
@@ -166,17 +167,18 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_ucs6g")
 theme_override_styles/focus = SubResource("StyleBoxFlat_ucs6g")
 placeholder_text = "Input .."
 alignment = 3
+max_length = 25
 expand_to_text_length = true
 text_direction = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1587249331]
 layout_mode = 1
 anchors_preset = -1
-anchor_top = 0.1
+anchor_top = 0.15
 anchor_bottom = 0.15
 offset_left = 20.0
 offset_right = 190.0
-offset_bottom = 300.0
+offset_bottom = 252.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 5
@@ -188,7 +190,7 @@ label_settings = SubResource("LabelSettings_nu30u")
 
 [node name="DescriptorEditor" type="TextEdit" parent="VBoxContainer" unique_id=1427356462]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(0, 230)
+custom_minimum_size = Vector2(0, 150)
 layout_mode = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_placeholder_color = Color(0.28668404, 0.28668338, 0.28668353, 0.6)
@@ -198,6 +200,38 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_p3t5w")
 theme_override_styles/focus = SubResource("StyleBoxFlat_p3t5w")
 theme_override_styles/read_only = SubResource("StyleBoxFlat_p3t5w")
 wrap_mode = 1
+
+[node name="LinkContainer" type="VBoxContainer" parent="." unique_id=1574646370]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.1
+anchor_top = 0.75
+anchor_right = 0.5
+anchor_bottom = 0.8
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Label" type="Label" parent="LinkContainer" unique_id=1069618094]
+layout_mode = 2
+text = "Links (optional):"
+label_settings = ExtResource("3_dnlvk")
+
+[node name="Link1" type="LineEdit" parent="LinkContainer" unique_id=1709629900]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 7
+theme_override_styles/normal = SubResource("StyleBoxFlat_ucs6g")
+theme_override_styles/focus = SubResource("StyleBoxFlat_ucs6g")
+placeholder_text = "link--"
+
+[node name="Link2" type="LineEdit" parent="LinkContainer" unique_id=133601295]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 7
+theme_override_styles/normal = SubResource("StyleBoxFlat_ucs6g")
+theme_override_styles/focus = SubResource("StyleBoxFlat_ucs6g")
+placeholder_text = "link--"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1802559038]
 unique_name_in_owner = true

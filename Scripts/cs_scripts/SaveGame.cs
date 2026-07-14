@@ -39,9 +39,9 @@ public partial class SaveGame : Resource
 		ResourceSaver.Save(new SaveGame(),SaveGamePath);
 	}
 
-	public void AddTaskContainer(string Name,string Description,Date CreatedDate)
+	public void AddTaskContainer(string Name,string Description,Date CreatedDate,Godot.Collections.Array<string> Links = null)
 	{
-		TaskContainerSaveCs container = new TaskContainerSaveCs(Name,Description,CreatedDate,TaskContainers.Count);
+		TaskContainerSaveCs container = new TaskContainerSaveCs(Name,Description,CreatedDate,Links,TaskContainers.Count);
 		TaskContainers.Add(container);
 		WriteSaveGame();
 	}

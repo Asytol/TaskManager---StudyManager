@@ -11,19 +11,21 @@ public partial class TaskContainerSaveCs : Resource
 	[Export] public Date CreatedOn;
 	[Export] public Date DeadLine;
 	[Export] public int TimesRepeated = 0;
+	[Export] public Godot.Collections.Array<string> Links = [];
 	public bool Cleared;
 
 	[Export] public int IndexNumber;
 
-	public TaskContainerSaveCs() : this(null,null,new Date(0,0,0),0) {}
+	public TaskContainerSaveCs() : this(null,null,new Date(0,0,0),null,0) {}
 
-	public TaskContainerSaveCs(string Name,string Description,Date CreatedDate,int IndexNumber)
+	public TaskContainerSaveCs(string Name,string Description,Date CreatedDate,Godot.Collections.Array<string> links,int IndexNumber)
 	{
 		this.Name = Name;
 		this.Description = Description;
 
 		this.CreatedOn = CreatedDate;
 		this.DeadLine = ExpandDate(CreatedDate,1);
+		this.Links = links;
 
 		this.IndexNumber = IndexNumber;
 	}
