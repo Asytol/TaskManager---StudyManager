@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://ccjhe6nbvec58" path="res://Sprites/TapedOnPapper.png" id="2_s5a0k"]
 [ext_resource type="LabelSettings" uid="uid://df8gecgp1h1py" path="res://Scripts/Resources/StandardLabelSettings.tres" id="3_s5a0k"]
 [ext_resource type="Texture2D" uid="uid://75vwgiykv1td" path="res://Sprites/PostItNote.png" id="4_m868e"]
+[ext_resource type="Texture2D" uid="uid://d1v7wtjss0ax" path="res://Sprites/XMark.png" id="5_fej6t"]
 
 [sub_resource type="Animation" id="Animation_dnlvk"]
 length = 0.001
@@ -106,6 +107,7 @@ border_color = Color(0.16026929, 0.16026932, 0.1602692, 0.40784314)
 [node name="TaskInfoPapper" type="TextureRect" unique_id=2080173714]
 offset_right = 200.0
 offset_bottom = 300.0
+mouse_filter = 2
 texture = ExtResource("1_86cpv")
 expand_mode = 1
 stretch_mode = 2
@@ -121,6 +123,7 @@ offset_right = 289.0
 offset_bottom = 48.0
 rotation = 0.17453292
 pivot_offset = Vector2(50, 25)
+mouse_filter = 2
 texture = ExtResource("2_s5a0k")
 stretch_mode = 3
 
@@ -169,6 +172,7 @@ anchor_left = 0.1
 anchor_right = 0.75
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 2
 
 [node name="TaskName" type="Label" parent="VBoxContainer2" unique_id=90881345]
 unique_name_in_owner = true
@@ -181,6 +185,7 @@ horizontal_alignment = 1
 unique_name_in_owner = true
 custom_minimum_size = Vector2(0, 170)
 layout_mode = 2
+mouse_filter = 2
 theme_override_colors/caret_color = Color(0, 0, 0, 1)
 theme_override_colors/selection_color = Color(0, 0, 0, 1)
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -199,9 +204,11 @@ wrap_mode = 1
 [node name="LinkContainer" type="VBoxContainer" parent="VBoxContainer2" unique_id=634814771]
 unique_name_in_owner = true
 layout_mode = 2
+mouse_filter = 2
 
 [node name="Link1" type="LinkButton" parent="VBoxContainer2/LinkContainer" unique_id=1115425928]
 layout_mode = 2
+mouse_filter = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 8
 text = "No_Link"
@@ -209,6 +216,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Link2" type="LinkButton" parent="VBoxContainer2/LinkContainer" unique_id=1561845563]
 layout_mode = 2
+mouse_filter = 2
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 8
 text = "No_Link"
@@ -219,3 +227,20 @@ unique_name_in_owner = true
 layout_mode = 2
 text = "Times repeated:"
 label_settings = ExtResource("3_s5a0k")
+
+[node name="CloseButton" type="TextureButton" parent="." unique_id=1778359751]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.02
+anchor_top = -0.02
+anchor_right = -0.02
+anchor_bottom = -0.02
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("5_fej6t")
+texture_pressed = ExtResource("5_fej6t")
+texture_hover = ExtResource("5_fej6t")
+texture_disabled = ExtResource("5_fej6t")
+texture_focused = ExtResource("5_fej6t")
+metadata/_edit_use_anchors_ = true

@@ -37,7 +37,8 @@ public partial class LogicHandler : Node
 	private bool PostItOut = false;
 
 	
-	
+	[Export] private TextureRect MainBoard;
+	[Export] private TextureButton WindowModeButton;	
 	public override void _Ready()
 	{
 		LoadOrInitializeSave();
@@ -67,6 +68,7 @@ public partial class LogicHandler : Node
 		TaskCreationPapper.GetNode<TextEdit>("%DescriptorEditor").TextChanged += OnDescriptionEdited;
 		TaskCreationPapper.GetNode<Button>("%Submit").ButtonUp += SubmitTask;
 		ChangeTaskCreationMouseFilter(Control.MouseFilterEnum.Ignore);
+		ChangeInfoPapperMouseFilter(Control.MouseFilterEnum.Ignore);
 
 		int i = 0;
 		foreach (Node child in TaskCreationPapper.GetNode<VBoxContainer>("%LinkContainer").GetChildren())
@@ -76,9 +78,10 @@ public partial class LogicHandler : Node
 				LinkEdit.TextChanged += (string text) => OnLinkEdited(text, i);
 				i++;
 			}
-		}
-		TempLinks.Resize(i+1);
+		} 
+		TempLinks.Resize(1);
 		
+		TaskInfoPapper.GetNode<TextureButton>("%CloseButton").ButtonUp += () => ConsealTaskInfoPapper();
 
 		TextureButton ToDoBookmark = GetNode<TextureButton>("%ToDoBookmark");
 		ToDoBookmark.MouseEntered += async () => await ScheduleAnimation("BookMarkExtend1");
@@ -102,11 +105,19 @@ public partial class LogicHandler : Node
 
 		LogicInstance = this;
 
+
+		GD.Print("WindowId: " + DisplayServer.WindowGetNativeHandle(DisplayServer.HandleType.WindowHandle));
+		GD.Print("Window DisplayHandle: " + DisplayServer.WindowGetNativeHandle(DisplayServer.HandleType.DisplayHandle));
+		GetWindow().InitialPosition = Window.WindowInitialPosition.Absolute;
+		WindowInFocus();
+		GetWindow().Mode = Window.ModeEnum.Maximized;
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		//DisplayServer.WindowSetPosition(new Vector2I(200,100));
+		//DisplayServer.WindowSetPosition
 	}
 	public void LoadOrInitializeSave()
 	{
@@ -161,8 +172,6 @@ public partial class LogicHandler : Node
 			TextureButton Options = Instance.GetNode<TextureButton>("%Options");
 			TextureButton CheckMark = Instance.GetNode<TextureButton>("%CheckMark");
 
-			
-
 			TaskName.Text = TaskContainer.Name;
 			RepeatNum.Text = TaskContainer.TimesRepeated.ToString();
 			if (TaskContainer.Cleared == true)
@@ -184,6 +193,10 @@ public partial class LogicHandler : Node
 				//Options.ButtonUp += Function;
 				CheckMark.ButtonUp += TaskContainer.Completed;
 				Options.ButtonUp += () => RevealTaskInfoPapper(TaskContainer);
+				if (TaskContainer.Name.Length > 13)
+				{
+					TaskName.Text = TaskContainer.Name.Substring(0,14)+"...";
+				}
 				TodoContainer.AddChild(Instance);	
 			}
 			else
@@ -238,6 +251,11 @@ public partial class LogicHandler : Node
 		TaskInfoPapper.GetNode<Label>("%TimesRepeated").Text = "Times repeated: " + TaskContainer.TimesRepeated;
 
 		sbyte i = 0;
+		if (TaskContainer.Links == null)
+		{
+			GD.Print("No links found");
+			goto SkipLinks;
+		}
 		foreach (Node child in TaskInfoPapper.GetNode<VBoxContainer>("%LinkContainer").GetChildren())
 		{
 			if (child is LinkButton button)
@@ -250,26 +268,32 @@ public partial class LogicHandler : Node
 
 				
 				sbyte CharNum = 0;
-				char[] NewString = [];
+				string NewString = "";
 
-				for (sbyte id = 0;id < TaskContainer.Links.Count; id++,CharNum++)
+				for (sbyte id = 0; id < TaskContainer.Links[i].Length; id++,CharNum++)
 				{
 					if (TaskContainer.Links[i][id] == '.')
 					{
 						if (id != CharNum)
 						{
-							TaskContainer.Links[i].CopyTo(id-CharNum+1,NewString,0,CharNum+1);
+							NewString = TaskContainer.Links[i].Substring(id-CharNum+1,id);
+							GD.Print("Id2: "+id);
+							break;
 						}
+						GD.Print("Id1: "+id);
 						CharNum = 0;
 					}
 				}
-				button.Text = $"Link{i+1}: {new string(NewString)}";
+				GD.Print(TaskContainer.Links[i]);
+				button.Text = $"Link{i+1}: {NewString}";
 
 				i++;
 			}
 		}
+		SkipLinks:
 
 		await ScheduleAnimation("TaskInfoOut");
+		ChangeInfoPapperMouseFilter(Control.MouseFilterEnum.Stop);
 	}
 	public async void ConsealTaskInfoPapper()
 	{
@@ -281,7 +305,8 @@ public partial class LogicHandler : Node
 				button.Uri = "";
 			}
 		}
-		await ScheduleAnimation("TaskInfoOut");
+		await ScheduleAnimation("TaskInfoOut",true);
+		ChangeInfoPapperMouseFilter(Control.MouseFilterEnum.Ignore);
 	}
 	private void ChangeTaskCreationMouseFilter(Godot.Control.MouseFilterEnum Filter)
 	{
@@ -292,6 +317,29 @@ public partial class LogicHandler : Node
 		NameEditor.MouseFilter = Filter;
 		TextEditor.MouseFilter = Filter;
 		SubmitButton.MouseFilter = Filter;
+		foreach (Node child in TaskCreationPapper.GetNode<VBoxContainer>("%LinkContainer").GetChildren())
+		{
+			if (child is LineEdit LinkEdit)
+			{
+				LinkEdit.MouseFilter = Filter;
+			}
+		}
+	}
+	private void ChangeInfoPapperMouseFilter(Godot.Control.MouseFilterEnum Filter)
+	{
+		TaskInfoPapper.MouseFilter = Filter;
+		if (Filter == Control.MouseFilterEnum.Stop)
+		{
+			TaskInfoPapper.MouseFilter = Control.MouseFilterEnum.Pass;
+		}
+		
+		Label TaskName = TaskInfoPapper.GetNode<Label>("%TaskName");
+		TextEdit Description = TaskInfoPapper.GetNode<TextEdit>("%Descriptor");
+		TextureButton CloseButton = TaskInfoPapper.GetNode<TextureButton>("%CloseButton");
+
+		TaskName.MouseFilter = Filter;
+		Description.MouseFilter = Filter;
+		CloseButton.MouseFilter = Filter;
 		foreach (Node child in TaskCreationPapper.GetNode<VBoxContainer>("%LinkContainer").GetChildren())
 		{
 			if (child is LineEdit LinkEdit)
@@ -331,13 +379,14 @@ public partial class LogicHandler : Node
 	}
 	public void OnLinkEdited(string Text,int IndexNumber)
 	{
+		TempLinks.Resize(IndexNumber+1);
 		TempLinks[IndexNumber] = Text;
 	}
 
 	public void SubmitTask()
 	{
 		DateTime date = DateTime.Today;
-		Date TempDate = new Date(date.Year,date.Month,date.Day);
+		Date TempDate = new Date(date.Year,date.Month,date.Day-1);
 
 		SaveGame.AddTaskContainer(TempName,TempDescription,TempDate,TempLinks);
 		SaveGame.WriteSaveGame();
@@ -357,7 +406,8 @@ public partial class LogicHandler : Node
 		{
 			if (ExtraPapperUsed == false)
 			{
-				await ScheduleAnimation("TapeOnPapper",false);
+				//Reminder, this is for another animation player, don't schedule it for fucks sake.
+				TaskCreationPapper.GetNode<AnimationPlayer>("%AnimationPlayer").Play("TapeOnPapper");
 			 	ExtraPapperUsed = true;	
 			}
 			return;
@@ -380,6 +430,62 @@ public partial class LogicHandler : Node
 			return;
 		}
 		AnimPlayer.Play(Name);
+	}
+
+
+
+	private sbyte CurrentWindowFocusMode = 1; 
+
+	public void SwitchWindowFocus()
+	{
+		CurrentWindowFocusMode += 1;
+		if (CurrentWindowFocusMode == 1)
+		{
+			WindowInFocus();
+			return;
+		}
+		if (CurrentWindowFocusMode == 2)
+		{
+			CurrentWindowFocusMode = 0;
+		}
+		
+		WindowOutOfFocus();
+	}
+	public void WindowInFocus()
+	{
+		MainBoard.Visible = true;
+		GetWindow().Size = new Vector2I(600,600);
+		GetWindow().Mode = Window.ModeEnum.Maximized;
+		GetWindow().Borderless = false;
+		GetWindow().AlwaysOnTop = false;
+		GetWindow().GrabFocus();
+		WindowModeButton.StretchMode = TextureButton.StretchModeEnum.Keep;
+		//WindowModeButton.SetAnchor();
+		WindowModeButton.Size = new Vector2(48,26);
+		//WindowModeButton.AnchorLeft = 0.5f; WindowModeButton.AnchorRight = 0.53f; WindowModeButton.AnchorTop = 0.5f; WindowModeButton.AnchorBottom = 0.5f;
+		WindowModeButton.SetAnchorAndOffset(Side.Left,0.3f,0); WindowModeButton.SetAnchorAndOffset(Side.Right,0.3f,0);WindowModeButton.SetAnchorAndOffset(Side.Top,0.05f,0);WindowModeButton.SetAnchorAndOffset(Side.Bottom,0.1f,0);
+		WindowModeButton.SetAnchorsPreset(Control.LayoutPreset.Center);
+
+		Vector2I DisplaySize = DisplayServer.ScreenGetSize(DisplayServer.WindowGetCurrentScreen());
+		Vector2I WindowSize = GetWindow().Size;
+		GetWindow().Position = new Vector2I(DisplaySize.X/2-WindowSize.X/2,DisplaySize.Y/2-WindowSize.Y/2);
+	}
+	public void WindowOutOfFocus()
+	{
+		GetWindow().AlwaysOnTop = true;
+		Vector2I DisplaySize = DisplayServer.ScreenGetSize(DisplayServer.WindowGetCurrentScreen());
+
+		MainBoard.Visible = false;
+		GetWindow().Mode = Window.ModeEnum.Windowed;
+		GetWindow().Borderless = true;
+		GetWindow().Size = new Vector2I(48*2,26*2);
+		WindowModeButton.StretchMode = TextureButton.StretchModeEnum.Scale;
+		WindowModeButton.Position = new Vector2(0,0);
+		//WindowModeButton.AnchorLeft = 0f; WindowModeButton.AnchorRight = 0f; WindowModeButton.AnchorTop = 0f; WindowModeButton.AnchorBottom = 0f;
+		WindowModeButton.Size = new Vector2(700,700);
+
+		
+		GetWindow().Position = new Vector2I(DisplaySize.X+400,DisplaySize.Y+50);
 	}
 
 	public void HOP(){ HoveringOnPostit = true;}

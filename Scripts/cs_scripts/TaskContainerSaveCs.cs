@@ -44,15 +44,18 @@ public partial class TaskContainerSaveCs : Resource
 				DeadLine = ExpandDate(DeadLine,7);
 				break;
 			case 3:
-				DeadLine = ExpandDate(DeadLine,21);
+				DeadLine = ExpandDate(DeadLine,14);
 				break;
 			case 4:
-				DeadLine = ExpandDate(DeadLine,40);
+				DeadLine = ExpandDate(DeadLine,28);
 				break;
 			case 5:
-				DeadLine = ExpandDate(DeadLine,60);
+				DeadLine = ExpandDate(DeadLine,40);
 				break;
 			case 6:
+				DeadLine = ExpandDate(DeadLine,60);
+				break;
+			case 7:
 				this.Cleared = true;
 				//Delete task or maybe put it in a permanently completed tab
 				break;

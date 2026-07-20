@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://bnojb21x00hb0"]
 
-[ext_resource type="Texture2D" uid="uid://duiw63y5q66fg" path="res://Sprites/ClipBoard.png" id="1_hpc76"]
 [ext_resource type="Script" uid="uid://dfspidpw1bao7" path="res://Scripts/cs_scripts/LogicHandler.cs" id="1_nhkr4"]
 [ext_resource type="PackedScene" uid="uid://7wwxyg361v6c" path="res://Scenes/TaskContainer.tscn" id="2_7rqgy"]
 [ext_resource type="PackedScene" uid="uid://b7yh16y20q4rb" path="res://Scenes/PostItScene.tscn" id="2_tr2i4"]
@@ -14,6 +13,7 @@
 [ext_resource type="LabelSettings" uid="uid://df8gecgp1h1py" path="res://Scripts/Resources/StandardLabelSettings.tres" id="10_6t1o7"]
 [ext_resource type="Texture2D" uid="uid://eytvvas2aqmo" path="res://Sprites/BookMark.png" id="10_8ju71"]
 [ext_resource type="PackedScene" uid="uid://qdurver0go" path="res://Scenes/TaskInfoPapper.tscn" id="14_5qxwa"]
+[ext_resource type="Texture2D" uid="uid://br1wn6iei0yrs" path="res://Sprites/RevealButton.png" id="14_xc4hf"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_hpc76"]
 font_size = 40
@@ -41,7 +41,7 @@ length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ListContainer/Board/ToDoBookmark:position:y")
+tracks/0/path = NodePath("Board/ToDoBookmark:position:y")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -57,7 +57,7 @@ length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ListContainer/Board/UpcomingBookmark:position:y")
+tracks/0/path = NodePath("Board/UpcomingBookmark:position:y")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -73,7 +73,7 @@ length = 0.1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ListContainer/Board/CompletedBookmark:position:y")
+tracks/0/path = NodePath("Board/CompletedBookmark:position:y")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -89,26 +89,26 @@ length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ListContainer/Board/ToDoBookmark:position")
+tracks/0/path = NodePath("Board/ToDoBookmark:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(10.799999, 480), Vector2(-80, 480)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("ListContainer/Board/ToDoBookmark:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.35, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [0.0, 0.0, 0.4363323129985824]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Board/ToDoBookmark:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(10.799999, 480), Vector2(-80, 480)]
 }
 
 [sub_resource type="Animation" id="Animation_6rnll"]
@@ -117,106 +117,108 @@ length = 0.5
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ListContainer/Board/UpcomingBookmark:position")
+tracks/0/path = NodePath("Board/UpcomingBookmark:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector2(35, 488), Vector2(-45, 488)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("ListContainer/Board/UpcomingBookmark:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.35, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [0.0, 0.0, 0.4363323129985824]
 }
-
-[sub_resource type="Animation" id="Animation_qxria"]
-resource_name = "PapperSliding"
-length = 1.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ListContainer/Board/TaskCreationPapper:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 0.9, 1.2),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 0,
-"values": [0.17453292519943295, 0.0, -0.17453292519943295, 0.0]
-}
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("ListContainer/Board/TaskCreationPapper:z_index")
+tracks/1/path = NodePath("Board/UpcomingBookmark:position")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0, 0.5),
 "transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [-1, 3]
+"update": 0,
+"values": [Vector2(50, 488), Vector2(-45, 488)]
 }
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("ListContainer/Board/TaskCreationPapper:position")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
+
+[sub_resource type="Animation" id="Animation_qxria"]
+resource_name = "PapperSliding"
+length = 1.2
+step = 0.016666668
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Board/TaskCreationPapper:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.5, 1),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector2(20, 30), Vector2(-200, 30), Vector2(-20, 30)]
 }
-
-[sub_resource type="Animation" id="Animation_y4jh7"]
-resource_name = "PapperSliding2"
-length = 1.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ListContainer/Board/TaskCreationPapper:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Board/TaskCreationPapper:z_index")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-1, 3]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Board/TaskCreationPapper:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.5, 0.9, 1.2),
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
 "values": [0.17453292519943295, 0.0, -0.17453292519943295, 0.0]
 }
+
+[sub_resource type="Animation" id="Animation_y4jh7"]
+resource_name = "PapperSliding2"
+length = 1.2
+step = 0.016666668
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Board/TaskCreationPapper:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(20, 30), Vector2(-200, 30), Vector2(-20, 30)]
+}
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("ListContainer/Board/TaskCreationPapper:z_index")
+tracks/1/path = NodePath("Board/TaskCreationPapper:z_index")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0.5, 1),
 "transitions": PackedFloat32Array(1, 1),
-"update": 1,
+"update": 0,
 "values": [-1, 3]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("ListContainer/Board/TaskCreationPapper:position")
+tracks/2/path = NodePath("Board/TaskCreationPapper:rotation")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
-"transitions": PackedFloat32Array(1, 1, 1),
+"times": PackedFloat32Array(0, 0.5, 0.9, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 0,
-"values": [Vector2(20, 30), Vector2(-200, 30), Vector2(-20, 30)]
+"values": [0.17453292519943295, 0.0, -0.17453292519943295, 0.0]
 }
 
 [sub_resource type="Animation" id="Animation_tr2i4"]
@@ -224,23 +226,23 @@ resource_name = "PostItSliding"
 tracks/0/type = "bezier"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ListContainer/Board/PostitNote:position:x")
+tracks/0/path = NodePath("Board/PostitNote:position:y")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"handle_modes": PackedInt32Array(2, 2),
-"points": PackedFloat32Array(220, -0.28987953, -111.12048, 0.3, 115, 330, -0.39999998, 15, 0, 0),
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(-20, -0.19793534, -85.35961, 0.13333334, 57.5, 20, -0.6666666, -0.5, 0, 0),
 "times": PackedFloat32Array(0, 1)
 }
 tracks/1/type = "bezier"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("ListContainer/Board/PostitNote:position:y")
+tracks/1/path = NodePath("Board/PostitNote:position:x")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"handle_modes": PackedInt32Array(2, 2),
-"points": PackedFloat32Array(-20, -0.19793534, -85.35961, 0.13333334, 57.5, 20, -0.6666666, -0.5, 0, 0),
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(220, -0.28987953, -111.12048, 0.3, 115, 330, -0.39999998, 15, 0, 0),
 "times": PackedFloat32Array(0, 1)
 }
 
@@ -249,417 +251,418 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ListContainer/Board/TaskCreationPapper:rotation")
+tracks/0/path = NodePath("Board/TaskInfoPapper:z_index")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.17453292519943295]
+"values": [0]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("ListContainer/Board/TaskCreationPapper:z_index")
+tracks/1/path = NodePath("Board/TaskInfoPapper:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [-1]
+"values": [0.17453292]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("ListContainer/Board/TaskCreationPapper:position")
+tracks/2/path = NodePath("Board/TaskInfoPapper:position:x")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(20, 30)]
+"values": [36.8]
 }
-tracks/3/type = "bezier"
+tracks/3/type = "value"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("ListContainer/Board/PostitNote:position:x")
+tracks/3/path = NodePath("Board/UpcomingBookmark:position:y")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(220, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [488.0]
 }
-tracks/4/type = "bezier"
+tracks/4/type = "value"
 tracks/4/imported = false
 tracks/4/enabled = true
-tracks/4/path = NodePath("ListContainer/Board/PostitNote:position:y")
+tracks/4/path = NodePath("Board/UpcomingBookmark:rotation")
 tracks/4/interp = 1
 tracks/4/loop_wrap = true
 tracks/4/keys = {
-"handle_modes": PackedInt32Array(2),
-"points": PackedFloat32Array(-20, -0.0005, 0, 0.0005, 0),
-"times": PackedFloat32Array(0)
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
 }
-tracks/5/type = "bezier"
+tracks/5/type = "value"
 tracks/5/imported = false
 tracks/5/enabled = true
-tracks/5/path = NodePath("ListContainer/Board/ToDoListPapper:scale:x")
+tracks/5/path = NodePath("Board/ToDoBookmark:position")
 tracks/5/interp = 1
 tracks/5/loop_wrap = true
 tracks/5/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(10.799999, 480)]
 }
-tracks/6/type = "bezier"
+tracks/6/type = "value"
 tracks/6/imported = false
 tracks/6/enabled = true
-tracks/6/path = NodePath("ListContainer/Board/ToDoListPapper:scale:y")
+tracks/6/path = NodePath("Board/ToDoBookmark:rotation")
 tracks/6/interp = 1
 tracks/6/loop_wrap = true
 tracks/6/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
 }
 tracks/7/type = "value"
 tracks/7/imported = false
 tracks/7/enabled = true
-tracks/7/path = NodePath("ListContainer/Board/ToDoListPapper/ToDoLabel:visible")
+tracks/7/path = NodePath("Board/CompletedBookmark:position:y")
 tracks/7/interp = 1
 tracks/7/loop_wrap = true
 tracks/7/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"update": 0,
+"values": [496.34003]
 }
 tracks/8/type = "value"
 tracks/8/imported = false
 tracks/8/enabled = true
-tracks/8/path = NodePath("ListContainer/Board/PlaceHolderPapper:visible")
+tracks/8/path = NodePath("Board/ToDoBookmark:position:y")
 tracks/8/interp = 1
 tracks/8/loop_wrap = true
 tracks/8/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
+"update": 0,
+"values": [480.39]
 }
-tracks/9/type = "bezier"
+tracks/9/type = "value"
 tracks/9/imported = false
 tracks/9/enabled = true
-tracks/9/path = NodePath("ListContainer/Board/UpcomingListPapper:scale:y")
+tracks/9/path = NodePath("Board/UpcomingListPapper/VBoxUpComing:visible")
 tracks/9/interp = 1
 tracks/9/loop_wrap = true
 tracks/9/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [true]
 }
 tracks/10/type = "value"
 tracks/10/imported = false
 tracks/10/enabled = true
-tracks/10/path = NodePath("ListContainer/Board/UpcomingListPapper:z_index")
+tracks/10/path = NodePath("Board/ToDoListPapper/VBoxToDo:visible")
 tracks/10/interp = 1
 tracks/10/loop_wrap = true
 tracks/10/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
+"update": 0,
+"values": [true]
 }
 tracks/11/type = "value"
 tracks/11/imported = false
 tracks/11/enabled = true
-tracks/11/path = NodePath("ListContainer/Board/UpcomingListPapper/UpcomingLabel:visible")
+tracks/11/path = NodePath("Board/UpcomingBookmark:position")
 tracks/11/interp = 1
 tracks/11/loop_wrap = true
 tracks/11/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"update": 0,
+"values": [Vector2(50, 488)]
 }
 tracks/12/type = "value"
 tracks/12/imported = false
 tracks/12/enabled = true
-tracks/12/path = NodePath("ListContainer/Board/UpcomingBookmark:position")
+tracks/12/path = NodePath("Board/UpcomingListPapper/UpcomingLabel:visible")
 tracks/12/interp = 1
 tracks/12/loop_wrap = true
 tracks/12/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(35, 488)]
+"values": [true]
 }
 tracks/13/type = "value"
 tracks/13/imported = false
 tracks/13/enabled = true
-tracks/13/path = NodePath("ListContainer/Board/ToDoListPapper/VBoxToDo:visible")
+tracks/13/path = NodePath("Board/UpcomingListPapper:z_index")
 tracks/13/interp = 1
 tracks/13/loop_wrap = true
 tracks/13/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"update": 0,
+"values": [1]
 }
-tracks/14/type = "value"
+tracks/14/type = "bezier"
 tracks/14/imported = false
 tracks/14/enabled = true
-tracks/14/path = NodePath("ListContainer/Board/UpcomingListPapper/VBoxUpComing:visible")
+tracks/14/path = NodePath("Board/UpcomingListPapper:scale:y")
 tracks/14/interp = 1
 tracks/14/loop_wrap = true
 tracks/14/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
 }
 tracks/15/type = "value"
 tracks/15/imported = false
 tracks/15/enabled = true
-tracks/15/path = NodePath("ListContainer/Board/ToDoBookmark:position:y")
+tracks/15/path = NodePath("Board/PlaceHolderPapper:visible")
 tracks/15/interp = 1
 tracks/15/loop_wrap = true
 tracks/15/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [480.39]
+"update": 0,
+"values": [false]
 }
 tracks/16/type = "value"
 tracks/16/imported = false
 tracks/16/enabled = true
-tracks/16/path = NodePath("ListContainer/Board/CompletedBookmark:position:y")
+tracks/16/path = NodePath("Board/ToDoListPapper/ToDoLabel:visible")
 tracks/16/interp = 1
 tracks/16/loop_wrap = true
 tracks/16/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [496.34003]
+"update": 0,
+"values": [true]
 }
-tracks/17/type = "value"
+tracks/17/type = "bezier"
 tracks/17/imported = false
 tracks/17/enabled = true
-tracks/17/path = NodePath("ListContainer/Board/ToDoBookmark:rotation")
+tracks/17/path = NodePath("Board/ToDoListPapper:scale:y")
 tracks/17/interp = 1
 tracks/17/loop_wrap = true
 tracks/17/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
 }
-tracks/18/type = "value"
+tracks/18/type = "bezier"
 tracks/18/imported = false
 tracks/18/enabled = true
-tracks/18/path = NodePath("ListContainer/Board/ToDoBookmark:position")
+tracks/18/path = NodePath("Board/ToDoListPapper:scale:x")
 tracks/18/interp = 1
 tracks/18/loop_wrap = true
 tracks/18/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(10.799999, 480)]
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(1, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
 }
-tracks/19/type = "value"
+tracks/19/type = "bezier"
 tracks/19/imported = false
 tracks/19/enabled = true
-tracks/19/path = NodePath("ListContainer/Board/UpcomingBookmark:rotation")
+tracks/19/path = NodePath("Board/PostitNote:position:y")
 tracks/19/interp = 1
 tracks/19/loop_wrap = true
 tracks/19/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-20, -0.0005, 0, 0.0005, 0),
+"times": PackedFloat32Array(0)
 }
-tracks/20/type = "value"
+tracks/20/type = "bezier"
 tracks/20/imported = false
 tracks/20/enabled = true
-tracks/20/path = NodePath("ListContainer/Board/UpcomingBookmark:position:y")
+tracks/20/path = NodePath("Board/PostitNote:position:x")
 tracks/20/interp = 1
 tracks/20/loop_wrap = true
 tracks/20/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [488.0]
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(220, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
 }
 tracks/21/type = "value"
 tracks/21/imported = false
 tracks/21/enabled = true
-tracks/21/path = NodePath("ListContainer/Board/TaskInfoPapper:position:x")
+tracks/21/path = NodePath("Board/TaskCreationPapper:position")
 tracks/21/interp = 1
 tracks/21/loop_wrap = true
 tracks/21/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [36.8]
+"update": 0,
+"values": [Vector2(20, 30)]
 }
 tracks/22/type = "value"
 tracks/22/imported = false
 tracks/22/enabled = true
-tracks/22/path = NodePath("ListContainer/Board/TaskInfoPapper:rotation")
+tracks/22/path = NodePath("Board/TaskCreationPapper:z_index")
 tracks/22/interp = 1
 tracks/22/loop_wrap = true
 tracks/22/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [0.17453292]
+"values": [-1]
 }
 tracks/23/type = "value"
 tracks/23/imported = false
 tracks/23/enabled = true
-tracks/23/path = NodePath("ListContainer/Board/TaskInfoPapper:z_index")
+tracks/23/path = NodePath("Board/TaskCreationPapper:rotation")
 tracks/23/interp = 1
 tracks/23/loop_wrap = true
 tracks/23/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [0]
+"update": 0,
+"values": [0.17453292519943295]
 }
 
 [sub_resource type="Animation" id="Animation_0iob3"]
 resource_name = "FlipUpPapper"
-tracks/0/type = "bezier"
+tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ListContainer/Board/ToDoListPapper:scale:x")
+tracks/0/path = NodePath("Board/ToDoListPapper/VBoxToDo:visible")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(1, 0, 0, 0, 0, 1, 0, 0, 0, 0),
-"times": PackedFloat32Array(0, 1)
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("ListContainer/Board/ToDoListPapper:scale:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(0, 0, 0),
-"points": PackedFloat32Array(1, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.2, 0, 0, 0, 0),
-"times": PackedFloat32Array(0, 0.5, 1)
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("ListContainer/Board/ToDoListPapper/ToDoLabel:visible")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.499, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
+"update": 0,
 "values": [true, true, false]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("ListContainer/Board/PlaceHolderPapper:visible")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.4557, 0.4558),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [false, false, true]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("ListContainer/Board/ToDoListPapper/VBoxToDo:visible")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.499, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [true, true, false]
-}
-
-[sub_resource type="Animation" id="Animation_xb4mg"]
-resource_name = "SwitchPapper2"
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("ListContainer/Board/UpcomingListPapper:scale:y")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(2, 2, 2),
-"points": PackedFloat32Array(1, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.2, 0, 0, 0, 0),
-"times": PackedFloat32Array(0, 0.5, 1)
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("ListContainer/Board/UpcomingListPapper:z_index")
+tracks/1/path = NodePath("Board/PlaceHolderPapper:visible")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.499, 0.5),
+"times": PackedFloat32Array(0, 0.4557, 0.4558),
 "transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [1, 1, 6]
+"update": 0,
+"values": [false, false, true]
 }
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("ListContainer/Board/UpcomingListPapper/UpcomingLabel:visible")
+tracks/2/path = NodePath("Board/ToDoListPapper/ToDoLabel:visible")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.499, 0.5, 1),
-"transitions": PackedFloat32Array(1, 1, 1, 1),
-"update": 1,
-"values": [true, true, false, false]
+"times": PackedFloat32Array(0, 0.499, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [true, true, false]
 }
-tracks/3/type = "value"
+tracks/3/type = "bezier"
 tracks/3/imported = false
 tracks/3/enabled = true
-tracks/3/path = NodePath("ListContainer/Board/UpcomingListPapper/VBoxUpComing:visible")
+tracks/3/path = NodePath("Board/ToDoListPapper:scale:y")
 tracks/3/interp = 1
 tracks/3/loop_wrap = true
 tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(1, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.2, 0, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.5, 1)
+}
+tracks/4/type = "bezier"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Board/ToDoListPapper:scale:x")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(1, 0, 0, 0, 0, 1, 0, 0, 0, 0),
+"times": PackedFloat32Array(0, 1)
+}
+
+[sub_resource type="Animation" id="Animation_xb4mg"]
+resource_name = "SwitchPapper2"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Board/UpcomingListPapper/VBoxUpComing:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.499, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
+"update": 0,
 "values": [true, true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Board/UpcomingListPapper/UpcomingLabel:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.499, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [true, true, false, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Board/UpcomingListPapper:z_index")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.499, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [1, 1, 6]
+}
+tracks/3/type = "bezier"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Board/UpcomingListPapper:scale:y")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"handle_modes": PackedInt32Array(0, 0, 0),
+"points": PackedFloat32Array(1, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.2, 0, 0, 0, 0),
+"times": PackedFloat32Array(0, 0.5, 1)
 }
 
 [sub_resource type="Animation" id="Animation_enc0b"]
 resource_name = "TaskInfoOut"
 length = 1.2
+step = 0.016666668
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ListContainer/Board/TaskInfoPapper:position:x")
+tracks/0/path = NodePath("Board/TaskInfoPapper:z_index")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
+"times": PackedFloat32Array(0, 0.499, 0.5),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
-"values": [36.8, -190.0, 36.8]
+"values": [0, 0, 7]
 }
 tracks/1/type = "value"
 tracks/1/imported = false
 tracks/1/enabled = true
-tracks/1/path = NodePath("ListContainer/Board/TaskInfoPapper:rotation")
+tracks/1/path = NodePath("Board/TaskInfoPapper:rotation")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
@@ -671,14 +674,14 @@ tracks/1/keys = {
 tracks/2/type = "value"
 tracks/2/imported = false
 tracks/2/enabled = true
-tracks/2/path = NodePath("ListContainer/Board/TaskInfoPapper:z_index")
+tracks/2/path = NodePath("Board/TaskInfoPapper:position:x")
 tracks/2/interp = 1
 tracks/2/loop_wrap = true
 tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.499, 0.5),
+"times": PackedFloat32Array(0, 0.5, 1),
 "transitions": PackedFloat32Array(1, 1, 1),
-"update": 1,
-"values": [0, 0, 7]
+"update": 0,
+"values": [36.8, -190.0, 36.8]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_nhkr4"]
@@ -697,7 +700,7 @@ _data = {
 &"TaskInfoOut": SubResource("Animation_enc0b")
 }
 
-[node name="MainNode -- LogicHandler" type="Control" unique_id=953130912 node_paths=PackedStringArray("TodoContainer", "UpcomingContainer", "CompletedContainer", "AnimPlayer", "PostItNote", "PostItHitbox", "TaskCreationPapper", "TaskInfoPapper")]
+[node name="MainNode -- LogicHandler" type="Control" unique_id=953130912 node_paths=PackedStringArray("TodoContainer", "UpcomingContainer", "CompletedContainer", "AnimPlayer", "PostItNote", "PostItHitbox", "TaskCreationPapper", "TaskInfoPapper", "MainBoard", "WindowModeButton")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -707,53 +710,52 @@ grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_nhkr4")
 TaskScene = ExtResource("2_7rqgy")
-TodoContainer = NodePath("ListContainer/Board/ToDoListPapper/VBoxToDo")
-UpcomingContainer = NodePath("ListContainer/Board/UpcomingListPapper/VBoxUpComing")
-CompletedContainer = NodePath("ListContainer/Board/CompletedListPapper/VBoxCompleted")
+TodoContainer = NodePath("Board/ToDoListPapper/VBoxToDo")
+UpcomingContainer = NodePath("Board/UpcomingListPapper/VBoxUpComing")
+CompletedContainer = NodePath("Board/CompletedListPapper/VBoxCompleted")
 AnimPlayer = NodePath("AnimationPlayer")
-PostItNote = NodePath("ListContainer/Board/PostitNote")
-PostItHitbox = NodePath("ListContainer/Board/ToDoListPapper/PostItHibox")
-TaskCreationPapper = NodePath("ListContainer/Board/TaskCreationPapper")
-TaskInfoPapper = NodePath("ListContainer/Board/TaskInfoPapper")
+PostItNote = NodePath("Board/PostitNote")
+PostItHitbox = NodePath("Board/ToDoListPapper/PostItHibox")
+TaskCreationPapper = NodePath("Board/TaskCreationPapper")
+TaskInfoPapper = NodePath("Board/TaskInfoPapper")
+MainBoard = NodePath("Board")
+WindowModeButton = NodePath("WindowModeButton")
 
-[node name="ListContainer" type="HBoxContainer" parent="." unique_id=601221473]
+[node name="WindowModeButton" type="TextureButton" parent="." unique_id=926322320]
+z_index = -2
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.3
+anchor_top = 0.05
+anchor_right = 0.3
+anchor_bottom = 0.1
+grow_horizontal = 2
+grow_vertical = 2
+texture_normal = ExtResource("14_xc4hf")
+texture_pressed = ExtResource("14_xc4hf")
+texture_hover = ExtResource("14_xc4hf")
+texture_disabled = ExtResource("14_xc4hf")
+texture_focused = ExtResource("14_xc4hf")
+
+[node name="Board" type="TextureRect" parent="." unique_id=1242395875]
+z_index = -2
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -484.0
+offset_left = -184.0
 offset_top = -300.0
-offset_right = 484.0
+offset_right = 184.0
 offset_bottom = 300.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 200
-
-[node name="CompletedList" type="TextureRect" parent="ListContainer" unique_id=1174696983]
-layout_mode = 2
-texture = ExtResource("1_hpc76")
-
-[node name="VBoxCompleted" type="VBoxContainer" parent="ListContainer/CompletedList" unique_id=635630350]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.15
-anchor_top = 0.15
-anchor_right = 0.85
-anchor_bottom = 0.9
-offset_left = -20.000004
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-
-[node name="Board" type="TextureRect" parent="ListContainer" unique_id=1242395875]
-z_index = -2
-layout_mode = 2
+mouse_filter = 2
 texture = ExtResource("4_y4jh7")
 stretch_mode = 2
 
-[node name="PlaceHolderPapper" type="NinePatchRect" parent="ListContainer/Board" unique_id=1996723157]
+[node name="PlaceHolderPapper" type="NinePatchRect" parent="Board" unique_id=1996723157]
 visible = false
 z_index = 6
 z_as_relative = false
@@ -768,28 +770,28 @@ patch_margin_top = 1
 patch_margin_right = 1
 patch_margin_bottom = 1
 
-[node name="CompletedBookmark" type="TextureButton" parent="ListContainer/Board" unique_id=162578819]
+[node name="CompletedBookmark" type="TextureButton" parent="Board" unique_id=162578819]
 unique_name_in_owner = true
 z_index = 1
 z_as_relative = false
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.21
-anchor_top = 1.065
-anchor_right = 0.21
-anchor_bottom = 1.065
-offset_left = 10.799988
-offset_top = -142.66003
-offset_right = 58.799988
-offset_bottom = -46.6593
+anchor_left = 0.25
+anchor_top = 1.01
+anchor_right = 0.25
+anchor_bottom = 1.01
+offset_top = -109.65997
+offset_right = 36.0
+offset_bottom = -13.659973
 grow_vertical = 0
 texture_normal = ExtResource("10_8ju71")
 texture_pressed = ExtResource("10_8ju71")
 texture_hover = ExtResource("10_8ju71")
 texture_disabled = ExtResource("10_8ju71")
 texture_focused = ExtResource("10_8ju71")
+metadata/_edit_use_anchors_ = true
 
-[node name="Label" type="Label" parent="ListContainer/Board/CompletedBookmark" unique_id=1769015709]
+[node name="Label" type="Label" parent="Board/CompletedBookmark" unique_id=1769015709]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -806,7 +808,7 @@ text = "3"
 label_settings = ExtResource("10_6t1o7")
 horizontal_alignment = 1
 
-[node name="CompletedListPapper" type="TextureRect" parent="ListContainer/Board" unique_id=1639036223]
+[node name="CompletedListPapper" type="TextureRect" parent="Board" unique_id=1639036223]
 z_as_relative = false
 layout_mode = 1
 offset_left = 14.0
@@ -816,7 +818,7 @@ offset_bottom = 571.0
 mouse_filter = 2
 texture = ExtResource("5_q68mp")
 
-[node name="CompletedLabel" type="Label" parent="ListContainer/Board/CompletedListPapper" unique_id=1277961586]
+[node name="CompletedLabel" type="Label" parent="Board/CompletedListPapper" unique_id=1277961586]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -832,7 +834,7 @@ grow_vertical = 2
 text = "Completed tasks:"
 label_settings = SubResource("LabelSettings_hpc76")
 
-[node name="VBoxCompleted" type="VBoxContainer" parent="ListContainer/Board/CompletedListPapper" unique_id=1883034417]
+[node name="VBoxCompleted" type="VBoxContainer" parent="Board/CompletedListPapper" unique_id=1883034417]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.15
@@ -845,31 +847,33 @@ offset_right = 20.0
 offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 30
+mouse_filter = 2
+theme_override_constants/separation = 50
 
-[node name="UpcomingBookmark" type="TextureButton" parent="ListContainer/Board" unique_id=1443880810]
+[node name="UpcomingBookmark" type="TextureButton" parent="Board" unique_id=1443880810]
 unique_name_in_owner = true
 z_index = 2
 z_as_relative = false
 material = SubResource("ShaderMaterial_6t1o7")
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 0.14
-anchor_top = 1.05
-anchor_right = 0.2
-anchor_bottom = 1.05
-offset_left = -16.52
-offset_top = -142.0
-offset_right = 31.480003
-offset_bottom = -45.999084
+anchor_left = 0.15
+anchor_top = 0.99
+anchor_right = 0.15
+anchor_bottom = 0.99
+offset_left = -5.200001
+offset_top = -106.0
+offset_right = 30.8
+offset_bottom = -10.0
 grow_vertical = 0
 texture_normal = ExtResource("10_8ju71")
 texture_pressed = ExtResource("10_8ju71")
 texture_hover = ExtResource("10_8ju71")
 texture_disabled = ExtResource("10_8ju71")
 texture_focused = ExtResource("10_8ju71")
+metadata/_edit_use_anchors_ = true
 
-[node name="Label" type="Label" parent="ListContainer/Board/UpcomingBookmark" unique_id=1758006818]
+[node name="Label" type="Label" parent="Board/UpcomingBookmark" unique_id=1758006818]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -886,7 +890,7 @@ text = "2"
 label_settings = ExtResource("10_6t1o7")
 horizontal_alignment = 1
 
-[node name="UpcomingListPapper" type="TextureRect" parent="ListContainer/Board" unique_id=400522833]
+[node name="UpcomingListPapper" type="TextureRect" parent="Board" unique_id=400522833]
 z_index = 1
 z_as_relative = false
 layout_mode = 1
@@ -905,7 +909,7 @@ pivot_offset = Vector2(0, 42)
 mouse_filter = 2
 texture = ExtResource("5_q68mp")
 
-[node name="UpcomingLabel" type="Label" parent="ListContainer/Board/UpcomingListPapper" unique_id=1076625402]
+[node name="UpcomingLabel" type="Label" parent="Board/UpcomingListPapper" unique_id=1076625402]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -921,7 +925,7 @@ grow_vertical = 2
 text = "Upcoming tasks:"
 label_settings = SubResource("LabelSettings_hpc76")
 
-[node name="VBoxUpComing" type="VBoxContainer" parent="ListContainer/Board/UpcomingListPapper" unique_id=826142320]
+[node name="VBoxUpComing" type="VBoxContainer" parent="Board/UpcomingListPapper" unique_id=826142320]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.15
@@ -935,9 +939,9 @@ offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
-theme_override_constants/separation = 30
+theme_override_constants/separation = 50
 
-[node name="ToDoBookmark" type="TextureButton" parent="ListContainer/Board" unique_id=1960151508]
+[node name="ToDoBookmark" type="TextureButton" parent="Board" unique_id=1960151508]
 unique_name_in_owner = true
 z_index = 3
 z_as_relative = false
@@ -945,13 +949,13 @@ material = SubResource("ShaderMaterial_xb4mg")
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.1
-anchor_top = 0.95
+anchor_top = 0.8
 anchor_right = 0.1
-anchor_bottom = 0.95
+anchor_bottom = 0.9600014
 offset_left = -26.0
-offset_top = -90.0
-offset_right = 22.000008
-offset_bottom = 6.0008545
+offset_top = 0.39001465
+offset_right = 10.0
+offset_bottom = 0.39001465
 grow_horizontal = 2
 grow_vertical = 2
 texture_normal = ExtResource("10_8ju71")
@@ -959,8 +963,9 @@ texture_pressed = ExtResource("10_8ju71")
 texture_hover = ExtResource("10_8ju71")
 texture_disabled = ExtResource("10_8ju71")
 texture_focused = ExtResource("10_8ju71")
+metadata/_edit_use_anchors_ = true
 
-[node name="Label" type="Label" parent="ListContainer/Board/ToDoBookmark" unique_id=1017719816]
+[node name="Label" type="Label" parent="Board/ToDoBookmark" unique_id=1017719816]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
@@ -977,7 +982,7 @@ text = "1"
 label_settings = ExtResource("10_6t1o7")
 horizontal_alignment = 1
 
-[node name="Clip" type="TextureRect" parent="ListContainer/Board" unique_id=467355318]
+[node name="Clip" type="TextureRect" parent="Board" unique_id=467355318]
 z_index = 3
 z_as_relative = false
 layout_mode = 1
@@ -990,7 +995,66 @@ offset_bottom = 40.0
 grow_horizontal = 2
 texture = ExtResource("8_f140w")
 
-[node name="PostitNote" parent="ListContainer/Board" unique_id=1214223644 instance=ExtResource("2_tr2i4")]
+[node name="ToDoListPapper" type="TextureRect" parent="Board" unique_id=1505756167]
+z_index = 2
+z_as_relative = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.027173912
+anchor_top = 0.018
+anchor_right = 0.97282606
+anchor_bottom = 0.9533333
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("5_f140w")
+stretch_mode = 2
+
+[node name="ToDoLabel" type="Label" parent="Board/ToDoListPapper" unique_id=932320438]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.03735632
+anchor_top = 0.00055735593
+anchor_right = 0.9626437
+anchor_bottom = 0.099442646
+grow_horizontal = 2
+grow_vertical = 2
+text = "Todays TodoList:"
+label_settings = SubResource("LabelSettings_hpc76")
+metadata/_edit_use_anchors_ = true
+
+[node name="PostItHibox" type="Control" parent="Board/ToDoListPapper" unique_id=230310165]
+layout_mode = 1
+anchor_left = 0.6063218
+anchor_top = -0.055375762
+anchor_right = 0.91666675
+anchor_bottom = 0.08845739
+offset_right = -3.0517578e-05
+metadata/_edit_use_anchors_ = true
+
+[node name="Control" type="Control" parent="Board/ToDoListPapper/PostItHibox" unique_id=1708194276]
+z_index = -1
+anchors_preset = 0
+offset_left = -1.0
+offset_right = 219.0
+offset_bottom = 149.0
+
+[node name="VBoxToDo" type="VBoxContainer" parent="Board/ToDoListPapper" unique_id=1184739956]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.15
+anchor_top = 0.15
+anchor_right = 0.85
+anchor_bottom = 0.85
+offset_left = -20.000004
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 50
+
+[node name="PostitNote" parent="Board" unique_id=1214223644 instance=ExtResource("2_tr2i4")]
 z_as_relative = false
 layout_mode = 1
 anchors_preset = -1
@@ -1001,10 +1065,10 @@ anchor_bottom = -0.03
 offset_left = -148.0
 offset_top = -2.0
 offset_right = -38.0
-offset_bottom = 108.00015
+offset_bottom = 108.00018
 grow_horizontal = 0
 
-[node name="TaskCreationPapper" parent="ListContainer/Board" unique_id=2080173714 instance=ExtResource("5_qxria")]
+[node name="TaskCreationPapper" parent="Board" unique_id=2080173714 instance=ExtResource("5_qxria")]
 z_index = -1
 z_as_relative = false
 layout_mode = 1
@@ -1018,7 +1082,7 @@ offset_right = 183.19916
 rotation = 0.17453292
 mouse_filter = 2
 
-[node name="TaskInfoPapper" parent="ListContainer/Board" unique_id=729808716 instance=ExtResource("14_5qxwa")]
+[node name="TaskInfoPapper" parent="Board" unique_id=729808716 instance=ExtResource("14_5qxwa")]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.1
@@ -1027,69 +1091,8 @@ anchor_right = 0.1
 anchor_bottom = 0.2
 rotation = 0.17453292
 
-[node name="ToDoListPapper" type="TextureRect" parent="ListContainer/Board" unique_id=1505756167]
-z_index = 2
-z_as_relative = false
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.027173912
-anchor_top = 0.018
-anchor_right = 0.97282606
-anchor_bottom = 0.9533333
-offset_bottom = -5.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-texture = ExtResource("5_f140w")
-stretch_mode = 2
-
-[node name="ToDoLabel" type="Label" parent="ListContainer/Board/ToDoListPapper" unique_id=932320438]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_top = 0.05
-anchor_right = 0.5
-anchor_bottom = 0.15
-offset_left = -0.5
-offset_top = -27.5
-offset_right = 0.5
-offset_bottom = 27.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "Todays TodoList:"
-label_settings = SubResource("LabelSettings_hpc76")
-
-[node name="PostItHibox" type="Control" parent="ListContainer/Board/ToDoListPapper" unique_id=230310165]
-layout_mode = 1
-anchor_left = 0.6063218
-anchor_top = -0.055375762
-anchor_right = 0.91666675
-anchor_bottom = 0.08845739
-offset_right = -3.0517578e-05
-metadata/_edit_use_anchors_ = true
-
-[node name="Control" type="Control" parent="ListContainer/Board/ToDoListPapper/PostItHibox" unique_id=1708194276]
-z_index = -1
-anchors_preset = 0
-offset_left = -1.0
-offset_right = 219.0
-offset_bottom = 149.0
-
-[node name="VBoxToDo" type="VBoxContainer" parent="ListContainer/Board/ToDoListPapper" unique_id=1184739956]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.15
-anchor_top = 0.15
-anchor_right = 0.85
-anchor_bottom = 0.85
-offset_left = -20.000004
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 30
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=818314645]
 libraries/ = SubResource("AnimationLibrary_nhkr4")
 speed_scale = 2.0
+
+[connection signal="button_up" from="WindowModeButton" to="." method="SwitchWindowFocus"]

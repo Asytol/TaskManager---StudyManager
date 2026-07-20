@@ -140,6 +140,7 @@ offset_right = 289.0
 offset_bottom = 48.0
 rotation = 0.17453292
 pivot_offset = Vector2(50, 25)
+mouse_filter = 2
 texture = ExtResource("2_fc70o")
 stretch_mode = 3
 
@@ -206,9 +207,9 @@ unique_name_in_owner = true
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.1
-anchor_top = 0.75
+anchor_top = 0.7
 anchor_right = 0.5
-anchor_bottom = 0.8
+anchor_bottom = 0.75
 offset_right = 40.0
 offset_bottom = 40.0
 

@@ -5,6 +5,7 @@ uniform float Green : hint_range(0.0,1.0,0.05);
 uniform float Blue : hint_range(0.0,1.0,0.05);
 uniform float Alpha : hint_range(0.0,1.0,0.05);
 
+
 void vertex() {
 	// Called for every vertex the material is visible on.
 }

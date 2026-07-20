@@ -26,12 +26,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=570558735]
 material = SubResource("ShaderMaterial_uvkwm")
 layout_mode = 0
 offset_right = 15.0
 offset_bottom = 15.0
+mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
 [node name="HBoxContainer" type="HBoxContainer" parent="ColorRect" unique_id=1967160365]
@@ -43,9 +45,11 @@ offset_left = 30.0
 offset_top = -1.0
 offset_right = 137.0
 offset_bottom = 21.0
+mouse_filter = 2
 
 [node name="TaskName Container" type="MarginContainer" parent="ColorRect/HBoxContainer" unique_id=739428290]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 0
 
 [node name="TaskName" type="Label" parent="ColorRect/HBoxContainer/TaskName Container" unique_id=1859618008]
@@ -57,21 +61,18 @@ label_settings = ExtResource("2_prhc4")
 [node name="RepeatNum Container" type="MarginContainer" parent="ColorRect/HBoxContainer" unique_id=1383283074]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
-theme_override_constants/margin_left = 40
+mouse_filter = 2
+theme_override_constants/margin_left = 10
 
-[node name="RepeatNum" type="Label" parent="ColorRect/HBoxContainer/RepeatNum Container" unique_id=496548291]
-unique_name_in_owner = true
+[node name="HBoxContainer" type="HBoxContainer" parent="ColorRect/HBoxContainer/RepeatNum Container" unique_id=758663228]
 layout_mode = 2
-text = "0"
-label_settings = ExtResource("2_prhc4")
+theme_override_constants/separation = 9
 
-[node name="TextureRect" type="TextureRect" parent="ColorRect/HBoxContainer" unique_id=1451512081]
+[node name="Control" type="Control" parent="ColorRect/HBoxContainer/RepeatNum Container/HBoxContainer" unique_id=665782235]
 layout_mode = 2
+mouse_filter = 2
 
-[node name="Control" type="Control" parent="ColorRect/HBoxContainer" unique_id=665782235]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="ColorRect/HBoxContainer/Control" unique_id=2061539009]
+[node name="TextureRect" type="TextureRect" parent="ColorRect/HBoxContainer/RepeatNum Container/HBoxContainer/Control" unique_id=2061539009]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -86,13 +87,15 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.5, 0.5)
 pivot_offset = Vector2(16, 16)
+mouse_filter = 2
 texture = ExtResource("3_u38u7")
 
-[node name="MarginContainer" type="MarginContainer" parent="ColorRect/HBoxContainer" unique_id=1161032979]
+[node name="RepeatNum" type="Label" parent="ColorRect/HBoxContainer/RepeatNum Container/HBoxContainer" unique_id=496548291]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 8
-theme_override_constants/margin_left = 150
-theme_override_constants/margin_top = 20
+text = "0"
+label_settings = ExtResource("2_prhc4")
 
 [node name="DeadlineLabel" type="Label" parent="ColorRect" unique_id=311812809]
 unique_name_in_owner = true
@@ -106,36 +109,29 @@ offset_bottom = 54.4
 text = "Deadline:"
 label_settings = SubResource("LabelSettings_xbn4q")
 
-[node name="ColorRect2" type="ColorRect" parent="." unique_id=974802670]
-custom_minimum_size = Vector2(0, 1)
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.05
-anchor_right = 1.0
-anchor_bottom = 0.05
-color = Color(0, 0, 0, 1)
-
 [node name="Control" type="Control" parent="." unique_id=1368447515]
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
 grow_horizontal = 2
 size_flags_horizontal = 8
+mouse_filter = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Control" unique_id=1874533039]
 layout_mode = 1
-anchors_preset = 6
+anchors_preset = -1
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -85.0
-offset_top = -16.0
-offset_bottom = 16.0
+offset_left = -93.0
+offset_top = -22.399998
+offset_bottom = 14.266666
 grow_horizontal = 0
 grow_vertical = 2
 scale = Vector2(0.6, 0.6)
 pivot_offset = Vector2(0, 56)
+mouse_filter = 2
 theme_override_constants/separation = 21
 
 [node name="Options" type="TextureButton" parent="Control/HBoxContainer" unique_id=119203680]
@@ -155,3 +151,15 @@ texture_pressed = ExtResource("6_4wcks")
 texture_hover = ExtResource("7_euekp")
 texture_disabled = ExtResource("5_5qe1q")
 texture_focused = ExtResource("5_5qe1q")
+
+[node name="ColorRect2" type="ColorRect" parent="Control" unique_id=974802670]
+custom_minimum_size = Vector2(0, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.05
+anchor_right = 1.0
+anchor_bottom = 0.05
+offset_top = 35.0
+offset_bottom = 36.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
